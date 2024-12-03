@@ -11,7 +11,7 @@ const TypeComponent = (props) => {
    
   };
   return (
-    <div style={{ cursor: "pointer" }} onClick={onClick}>
+    <div className="cursor-pointer hover:text-red-500" onClick={onClick}>
       {props.title}
     </div>
   );

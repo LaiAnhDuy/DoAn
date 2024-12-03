@@ -11,11 +11,9 @@ import {
   ShoppingOutlined,
 } from "@ant-design/icons";
 import {
-  WrapperContentPopup,
   WrapperHeader,
   WrapperHeaderAccount,
   WrapperHeaderText,
-  WrapperHeaderTextSmall,
   WrapperType,
 } from "./style";
 
@@ -29,7 +27,6 @@ import SignInComponent from "../SignInComponent/SignInComponent";
 import SignUpComponent from "../SignUpComponent/SignUpComponent";
 import SendEmailComponent from "../ForgotPasswordComponent/SendEmailComponent";
 import ProfileComponent from "../ProfileComponet/ProfileComponent";
-
 
 const HeaderComponent = () => {
   const navigate = useNavigate();
@@ -96,22 +93,22 @@ const HeaderComponent = () => {
 
   const content = (
     <div>
-      <WrapperContentPopup onClick={() => handleClickNavigate("profile")}>
+      <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate("profile")}>
         Thông tin người dùng
-      </WrapperContentPopup>
+      </div>
       {user?.role === "admin" && (
-        <WrapperContentPopup onClick={() => handleClickNavigate("admin")}>
+        <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate("admin")}>
           Quản lí hệ thống
-        </WrapperContentPopup>
+        </div>
       )}
       {user?.role === "user" && (
-        <WrapperContentPopup onClick={() => handleClickNavigate(`my-order`)}>
+        <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate(`my-order`)}>
           Đơn hàng của tôi
-        </WrapperContentPopup>
+        </div>
       )}
-      <WrapperContentPopup onClick={() => handleClickNavigate()}>
+      <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate()}>
         Đăng xuất
-      </WrapperContentPopup>
+      </div>
     </div>
   );
 
@@ -180,13 +177,18 @@ const HeaderComponent = () => {
               <UserOutlined style={{ fontSize: "30px" }} />
               {user?.access_token ? (
                 <>
-                  <Popover content={content} trigger="click" open={isOpenPopup}>
+                  <Popover
+                    content={content}
+                    trigger="click"
+                    open={isOpenPopup}
+                  >
                     <div
                       style={{
                         cursor: "pointer",
-                        maxWidth: 100,
+                        maxWidth: 150,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
+                        fontSize: "20px",
                       }}
                       onClick={() => setIsOpenPopup((prev) => !prev)}
                     >
@@ -196,11 +198,9 @@ const HeaderComponent = () => {
                 </>
               ) : (
                 <div onClick={handleOpenSignIn} style={{ cursor: "pointer" }}>
-                  <WrapperHeaderTextSmall>
-                    Đăng nhập/Đăng ký
-                  </WrapperHeaderTextSmall>
+                  <div>Đăng nhập/Đăng ký</div>
                   <div>
-                    <WrapperHeaderTextSmall>Tài khoản</WrapperHeaderTextSmall>
+                    <div>Tài khoản</div>
                     <CaretDownOutlined />
                   </div>
                 </div>
@@ -222,9 +222,7 @@ const HeaderComponent = () => {
               <Badge count={order?.orderItems?.length} size="small">
                 <ShoppingOutlined style={{ fontSize: "34px", color: "#fff" }} />
               </Badge>
-              <WrapperHeaderTextSmall className="ml-2">
-                Giỏ hàng
-              </WrapperHeaderTextSmall>
+              <div className="ml-2 text-xl text-white">Giỏ hàng</div>
             </div>
           </Col>
         </Row>
@@ -247,7 +245,6 @@ const HeaderComponent = () => {
       <Modal open={openEmail} onCancel={handleCancelEmail} footer={false}>
         <SendEmailComponent />
       </Modal>
-
 
       <Modal open={openProfile} onCancel={handleCancelProfile} footer={false}>
         <ProfileComponent handleCancelProfile={handleCancelProfile} />

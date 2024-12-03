@@ -169,7 +169,7 @@ const NavBarComponent = () => {
           >
             {options.map((option, index) => {
               return (
-                <Radio key={index} style={{ marginLeft: 0 }} value={option}>
+                <Radio key={index} className="mb-2" value={option}>
                   <Rate
                     style={{ fontSize: "12px" }}
                     disabled
@@ -227,23 +227,23 @@ const NavBarComponent = () => {
   };
   return (
     <div>
-      <h2 className="font-bold text-2xl " style={{ marginTop: "0" }}>
+      <h2 className="font-bold text-3xl mb-5">
         Lọc sản phẩm
       </h2>
-      <h4 className="font-bold">Loại sản phẩm</h4>
+      <h4 className="font-medium text-base mb-2">Loại sản phẩm</h4>
       <WrapperContent>
         {renderContent("radio", [
           { value: "donghonam", label: "Đồng hồ nam" },
           { value: "donghonu", label: "Đồng hồ nữ" },
         ])}
       </WrapperContent>
-      <h4 className="font-bold">Bộ máy</h4>
+      <h4 className="font-medium text-base my-2">Bộ máy</h4>
       <WrapperContent>{renderContent("caliber", calibers)}</WrapperContent>
-      <h4 className="font-bold">Kiểu dây</h4>
+      <h4 className="font-medium text-base mb-2">Kiểu dây</h4>
       <WrapperContent>{renderContent("type", types)}</WrapperContent>
-      <h4 className="font-bold">Đánh giá</h4>
+      <h4 className="font-medium text-base mb-2">Đánh giá</h4>
       <WrapperContent>{renderContent("star", [1, 2, 3, 4, 5])}</WrapperContent>
-      <h4 className="font-bold">Giá</h4>
+      <h4 className="font-medium text-base mb-2">Giá</h4>
       <p>
         Giá từ{" "}
         {Number(price[0]).toLocaleString("vi-VN", {
@@ -257,7 +257,7 @@ const NavBarComponent = () => {
         })}
       </p>
       <WrapperContent>{renderContent("price")}</WrapperContent>
-      <h4 className="font-bold">Thương hiệu</h4>
+      <h4 className="font-medium text-base mb-2">Thương hiệu</h4>
       <WrapperContent>{renderContent("brand", brands)}</WrapperContent>
     </div>
   );

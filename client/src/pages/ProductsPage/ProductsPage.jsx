@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBarComponent from "../../components/NavBarComponent/NavBarComponent";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import { Breadcrumb, Col, Pagination, Row } from "antd";
-import { WrapperNavbar, WrapperProducts } from "./style";
+import { WrapperProducts } from "./style";
 import * as ProductService from "../../services/ProductService";
 import * as BrandService from "../../services/BrandService";
 import { useDispatch, useSelector } from "react-redux";
@@ -88,15 +88,18 @@ const ProductsPage = () => {
           },
         ];
   return (
-    <div style={{ padding: " 0 80px", background: "#efefef" }}>
+    <div className="px-[130px] my-10">
       <Breadcrumb items={breadcrumbItems} />
-      <hr />
+      <div className="h-[1px] w-full my-5 bg-stone-500"></div>
+
+      {/* brand */}
       <div
+        className="mb-5"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(9, 1fr)",
           justifyContent: "space-between",
-          gap: "10px",
+          gap: "30px",
         }}
       >
         {brand?.map((value, index) => (
@@ -117,16 +120,18 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
+      
       <Row
         style={{
           flexWrap: "nowrap",
           paddingTop: "10px",
         }}
       >
-        <WrapperNavbar span={6}>
+        <div span={6} className="flex gap-x-5 mr-5">
           <NavBarComponent />
-        </WrapperNavbar>
-        <Col span={18} style={{ paddingLeft: "20px" }}>
+          <div className="w-[1px] bg-stone-400"></div>
+        </div>
+        <Col span={18}  className="">
           {product.length > 0 ? (
             <div>
               <WrapperProducts>
@@ -153,7 +158,7 @@ const ProductsPage = () => {
               />
             </div>
           ) : (
-            <p>Không có sản phẩm.</p>
+            <p className="text-2xl">Không có sản phẩm nào.</p>
           )}
         </Col>
       </Row>

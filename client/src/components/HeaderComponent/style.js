@@ -10,11 +10,7 @@ export const WrapperHeaderText = styled.span`
   color: white;
   font-weight: bold;
 `;
-export const WrapperHeaderTextSmall = styled.span`
-  font-size: 12px;
-  color: #fff;
-  white-space: nowrap;
-`;
+
 export const WrapperHeaderAccount = styled.div`
   display: flex;
   align-items: center;
@@ -32,9 +28,4 @@ export const WrapperType = styled.div`
   color: #fff;
   padding: 0 130px;
 `;
-export const WrapperContentPopup = styled.p`
-  cursor: pointer;
-  &:hover {
-    color: rgb(26, 148, 255);
-  }
-`;
+
