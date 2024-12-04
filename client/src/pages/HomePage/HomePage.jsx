@@ -5,15 +5,16 @@ import { WrapperButtonMore, WrapperProducts } from "./style";
 
 import CardComponent from "../../components/CardComponent/CardComponent";
 import SliderComponent from "../../components/SliderComponent/SliderComponent";
-import FooterComponent from "../../components/FooterComponent/FooterComponent";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { events } from "./config";
 import EventComponent from "../../components/EventComponent/EventComponent";
+import Expertise from "../../components/Expertise";
+import News from "../../components/News";
 
 const HomePage = () => {
   const [product, setProduct] = useState([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const getAllProducts = async () => {
     try {
       const res = await ProductService.getAllProduct();
@@ -30,7 +31,7 @@ const HomePage = () => {
       <div
         id="container"
         style={{
-          padding: " 0 130px",
+          padding: " 0 150px",
           backgroundColor: "#000",
         }}
       >
@@ -58,44 +59,15 @@ const HomePage = () => {
           />
         ))}
       </WrapperProducts>
-
-      <div className="text-4xl font-medium my-10 flex ">
-        <div className="w-3/4 " style={{ marginLeft: "55px" }}>
-          <div>
-            <div className="w-full text-4xl font-medium ml-14">
-              Dwatch_Tin tức và sự kiện
-            </div>
-            <div className="grid grid-cols-3 mx-10 mb-5">
-              {events.map((event) => (
-                <EventComponent
-                  image={event.image}
-                  title={event.title}
-                  time={event.time}
-                  content={event.content}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className=" w-1/4" style={{ marginRight: "70px" }}>
-          <h1 className="font-medium text-2xl">Báo dân chí nói về Dwatch</h1>
-          <hr className="w-8 h-1 bg-orange-400 my-5" />
-          <img src="images/event/dantri.jpeg" alt="" className="w-3/5" />
-          <img
-            src="images/event/vietnamnet.png"
-            alt=""
-            className="mb-5 w-3/5"
-          />
-          <img src="images/event/vtv1.png" alt="" className="w-3/5" />
-        </div>
-      </div>
+      <Expertise />
+      <News />
 
       <div
         style={{
           width: "100%",
           display: "flex",
           justifyContent: "center",
-          marginTop: "10px",
+          marginTop: "50px",
         }}
       >
         <WrapperButtonMore
@@ -109,13 +81,10 @@ const HomePage = () => {
             borderRadius: "4px",
           }}
           onClick={() => {
-            Navigate("/products");
+            navigate("/products");
           }}
           styleTextButton={{ fontWeight: 500 }}
         />
-      </div>
-      <div className="mt-10">
-        <FooterComponent />
       </div>
     </>
   );

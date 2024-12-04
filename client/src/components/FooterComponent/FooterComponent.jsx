@@ -1,59 +1,88 @@
-import React from "react";
-import { PhoneOutlined, MessageOutlined, SettingOutlined } from "@ant-design/icons";
-
-const FooterComponent = () => {
+import {
+  SettingOutlined,
+  PhoneOutlined,
+  MessageOutlined,
+} from "@ant-design/icons";
+import { items } from "./config";
+export default function Footer() {
   return (
-    <div>
-      <div className="px-[130px] py-5 bg-black">
-        <div className="grid grid-cols-4">
-          <div className="text-white">
-            <div className="bg-red-600 p-2 pl-10 text-xl rounded-lg mb-4 flex gap-x-10">
-              <PhoneOutlined className="text-[32px]" />
-              <div>
-                0919 95 32 80 <br /> TƯ VẤN BÁN HÀNG
-              </div>
+    <div className="bg-black mt-10">
+      <div className="px-[150px] py-10 grid grid-cols-4 gap-x-20">
+        <div className="">
+          <div className="flex gap-x-5 bg-red-600 p-4 rounded-lg text-white">
+            <PhoneOutlined style={{ fontSize: 50 }} />
+            <div>
+              <p>0384187872</p>
+              <p>TƯ VẤN BÁN HÀNG</p>
             </div>
+          </div>
+          <div className="flex gap-x-5 bg-red-600 p-4 rounded-lg text-white mt-4">
+            <MessageOutlined style={{ fontSize: 50 }} />
+            <div>
+              <p>0788065529</p>
+              <p>HỖ TRỢ DỊCH VỤ</p>
+            </div>
+          </div>
+          <div className="flex gap-x-5 bg-red-600 p-4 rounded-lg text-white mt-4">
+            <SettingOutlined style={{ fontSize: 50 }} />
+            <div>
+              <p>0333422285</p>
+              <p>TƯ VẤN KỸ THUẬT</p>
+            </div>
+          </div>
+        </div>
 
-            <div className="bg-red-600 p-2 pl-10 text-xl rounded-lg mb-4 flex gap-x-10">
-              <MessageOutlined className="text-[32px]" />
-              <div>
-                0247 306 3555 <br />
-                HỖ TRỢ DỊCH VỤ
+        <div className="col-span-3">
+          <div className="grid grid-cols-3">
+            {items.map((item, index) => (
+              <div key={index} className="text-white">
+                <p className="font-bold text-[16px]">{item.title}</p>
+                {item.content.map((content) => (
+                  <p
+                    key={content}
+                    className="mt-4 opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer"
+                  >
+                    {content}
+                  </p>
+                ))}
               </div>
-            </div>
+            ))}
+          </div>
 
-            <div className="bg-red-600 p-2 pl-10 text-xl rounded-lg mb-4 flex gap-x-10">
-              <SettingOutlined className="text-[32px]" />
-              <div>
-                0247 306 3555 <br />
-                TƯ VẤN KỸ THUẬT
+          <div className="flex justify-between mt-5">
+            <div className="text-white flex items-center">
+              <p className="opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer">
+                Đồng hồ FC
+              </p>
+              <div className="w-[1px] h-4 opacity-40 mx-2 bg-white"></div>
+              <p className="opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer">
+                Đồng hồ Certina
+              </p>
+              <div className="w-[1px] h-4 opacity-40 mx-2 bg-white"></div>
+              <p className="opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer">
+                Ciga Design
+              </p>
+              <div className="w-[1px] h-4 opacity-40 mx-2 bg-white"></div>
+              <p className="opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer">
+                Đồng hồ cơ
+              </p>
+              <div className="w-[1px] h-4 opacity-40 mx-2 bg-white"></div>
+              <p className="opacity-70 hover:opacity-100 hover:text-red-500 cursor-pointer">
+                Dây da
+              </p>
+            </div>
+            <div className="flex items-center gap-x-5">
+              <img src="/images/footer/facebook.png" className="w-14 h-14" alt="" />
+              <div className="bg-white rounded-full w-14 h-14">
+                <img src="/images/footer/youtube.png" alt="" />
+              </div>
+              <div className="bg-white rounded-full w-14 h-14">
+                <img src="/images/footer/gmail.png" alt="" />
               </div>
             </div>
-          </div>
-          <div className="text-white pl-10 text-[20px]">
-            <div className="mb-2">CHĂM SÓC KHÁCH HÀNG</div>
-            <div className="text-gray-500 mb-2">Chính sách đổi trả</div>
-            <div className="text-gray-500 mb-2">Chính sách bảo hành</div>
-            <div className="text-gray-500">Tra cứu bảo hành</div>
-          </div>
-          <div className="text-white pl-10 text-[20px]">
-            <div className="mb-2">VỀ DWATCH</div>
-            <div className="text-gray-500 mb-2">Giới thiệu đồng hồ Dwatch</div>
-            <div className="text-gray-500 mb-2">Triết lý kinh doanh</div>
-            <div className="text-gray-500 mb-2">Giấy chứng nhận và giải thưởng</div>
-            <div className="text-gray-500">Khách hàng nói gì về chúng tôi</div>
-          </div>
-          <div className="text-white pl-10 text-[20px] ">
-          <div className="mb-2">TIỆN ÍCH </div>
-            <div className="text-gray-500 mb-2">Tin tức</div>
-            <div className="text-gray-500 mb-2">Kiến thức đồng hồ</div>
-            <div className="text-gray-500 mb-2">Thông tin liên hệ</div>
-            <div className="text-gray-500">Tuyển dụng</div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default FooterComponent;
+}

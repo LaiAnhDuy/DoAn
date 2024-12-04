@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const WrapperHeader = styled.header`
-  padding: 25px 130px;
+  padding: 25px 150px;
   background-color: #000;
   flex-wrap: nowrap;
 `;
@@ -26,6 +26,6 @@ export const WrapperType = styled.div`
   height: 44px;
   background-color: #303032;
   color: #fff;
-  padding: 0 130px;
+  padding: 0 150px;
 `;
 

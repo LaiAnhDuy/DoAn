@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Image, Rate, message } from "antd";
-import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import { Rate, message } from "antd";
+import { UnorderedListOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import {
-  WrapperInputNumber,
-  WrapperPriceTextProduct,
-  WrapperQualityProduct,
-  WrapperStyleColImage,
-  WrapperStyleImageSmall,
-  WrapperStyleNameProduct,
-} from "./style";
-import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import { addOrderProduct } from "../../redux/slides/orderSlide";
 
 import { modalState } from "../../redux/slides/userSlide";
@@ -26,10 +17,6 @@ const ProductDetailsComponent = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
-  const onChange = (value) => {
-    setNumProduct(Number(value));
-  };
 
   useEffect(() => {
     const orderRedux = order?.orderItems?.find(
@@ -88,176 +75,135 @@ const ProductDetailsComponent = (props) => {
   };
   return (
     <div>
-      <Row
-        style={{
-          padding: "16px",
-          background: "#fff",
-          borderRadius: "4px",
-          height: "100%",
-        }}
-      >
-        <Col
-          span={10}
-          style={{
-            borderRight: "1px solid #e5e5e5",
-            paddingRight: "8px",
-            textAlign: "center",
-          }}
-        >
-          <Image
+      <div className="px-[150px] grid grid-cols-7 gap-x-5 mt-10">
+        <div className="col-span-2">
+          <img
             src={`http://localhost:3001/static/${props.images?.[index]}`}
-            alt="image product"
-            preview={false}
-            className=" !h-[500px] object-cover"
+            className="w-full h-[400px] object-cover"
+            alt=""
           />
-          <Row style={{ paddingTop: "10px", justifyContent: "space-between" }}>
-            {props.images?.map((value, index) => (
-              <WrapperStyleColImage span={4}>
-                <WrapperStyleImageSmall
-                  src={`http://localhost:3001/static/${value}`}
-                  alt="image product"
-                  preview={false}
-                  onClick={() => setIndex(index)}
+          <div className="flex gap-x-2 mt-5 item-center">
+            {props.images?.map((image, index) => (
+              <div
+                key={index}
+                onClick={() => setIndex(index)}
+                className="w-[100px] h-[100px]"
+              >
+                <img
+                  src={`http://localhost:3001/static/${image}`}
+                  alt=""
+                  className="w-full h-full object-cover"
                 />
-              </WrapperStyleColImage>
+              </div>
             ))}
-          </Row>
-        </Col>
-        <Col
-          span={7}
-          style={{
-            borderRight: "1px solid #e5e5e5",
-            padding: "20px",
-          }}
-        >
-          <p style={{ display: "flex", alignItems: "center" }}>
-            <img
-              alt="#"
-              style={{ width: "90px", marginRight: "10px" }}
-              src="/images/chinhhang.png"
-            />
-            <span style={{ fontWeight: 500 }}>Thương hiệu: </span> {props.brand}
+          </div>
+        </div>
+        <div className="col-span-3 border-x px-4">
+          <p className="font-bold mt-2">
+            <span className="text-blue-500 bg-blue-50 rounded-full px-1 pb-1 mr-5">
+              {/* <CheckCircleIcon /> */}
+              <span className="ml-2">Chính hãng</span>
+            </span>
+            <span className="font-medium">Thương hiệu: {props.brand}</span>
           </p>
-          <WrapperStyleNameProduct>
-            ĐỒNG HỒ {props.name}
-          </WrapperStyleNameProduct>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <h4>({props.rate})</h4>
-
+          <p className="font-medium text-2xl mt-3">ĐỒNG HỒ {props.name}</p>
+          <div className="flex items-center">
+            <p className="mr-2 font-medium text-xl">{props.rate}</p>
             <Rate
               disabled
               value={props.rate}
               style={{ fontSize: "15px", paddingLeft: "10px" }}
             />
           </div>
-          <WrapperPriceTextProduct>
+          <p className="mt-5 ml-5 text-3xl font-medium flex">
             {Number(props.price).toLocaleString("vi-VN", {
               style: "currency",
               currency: "VND",
             })}
-          </WrapperPriceTextProduct>
-
-          <p
-            style={{
-              paddingTop: "10px",
-              fontWeight: 500,
-              borderTop: "1px solid #e5e5e5",
-            }}
-          >
-            Mô tả
           </p>
-          <div>{props.description}</div>
-          <div
-            style={{
-              margin: "10px 0 20px",
-              padding: "10px 0",
-              borderTop: "1px solid #e5e5e5",
-              borderBottom: "1px solid #e5e5e5",
-            }}
-          >
-            <div className="flex items-center mb-2">
-              <div style={{ fontWeight: 500 }}>Số lượng</div>
-              <p style={{ paddingLeft: "10px", fontSize: "10px" }}>
-                ( còn {props.quantity} )
-              </p>
-            </div>
+          <hr className="mt-5" />
+          <p className="mt-5 font-bold text-xl">Mô tả</p>
+          <p className="mt-5 font-medium">{props.description}</p>
+          <hr className="my-5" />
+          <p>Số lượng (còn {props.quantity})</p>
+          <div className="flex mt-5 border rounded-xl w-max items-center">
+            <button
+              className="text-3xl text-white px-10 active:bg-red-400 bg-red-500 rounded-l"
+              onClick={() => handleChangeCount("decrease", numProduct === 1)}
+            >
+              -
+            </button>
+            <input
+              className="w-24 text-center text-xl border-x border-gray-300 focus:outline-none"
+              value={numProduct || ""}
+              onChange={(e) => {
+                const value = e.target.value;
 
-            <WrapperQualityProduct>
-              <button
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                }}
-                onClick={() => handleChangeCount("decrease", numProduct === 1)}
-              >
-                <MinusOutlined style={{ color: "#000", fontSize: "20px" }} />
-              </button>
-              <WrapperInputNumber
-                onChange={onChange}
-                defaultValue={1}
-                max={props.quantity}
-                min={1}
-                value={numProduct}
-                size="small"
-              />
-              <button
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  cursor: "pointer",
-                }}
-                onClick={() =>
-                  handleChangeCount("increase", numProduct === props?.quantity)
+                if (value === "") {
+                  setNumProduct("");
+                  return;
                 }
-              >
-                <PlusOutlined style={{ color: "#000", fontSize: "20px" }} />
-              </button>
-            </WrapperQualityProduct>
+
+                const parsedValue = parseInt(value, 10);
+                if (parsedValue >= 1 && parsedValue <= props?.quantity) {
+                  setNumProduct(parsedValue);
+                }
+              }}
+              onBlur={() => {
+                if (!numProduct || numProduct < 1) {
+                  setNumProduct(1);
+                }
+              }}
+            />
+
+            <button
+              className="text-3xl text-white px-10 active:bg-red-400 bg-red-500 rounded-r"
+              onClick={() =>
+                handleChangeCount("increase", numProduct === props?.quantity)
+              }
+            >
+              +
+            </button>
           </div>
-          <div style={{ display: "flex", aliggItems: "center", gap: "12px" }}>
-            <div>
-              <ButtonComponent
-                size={40}
-                styleButton={{
-                  background: "rgb(255, 57, 69)",
-                  height: "48px",
-                  width: "220px",
-                  border: "none",
-                  borderRadius: "4px",
-                }}
-                onClick={handleAddOrderProduct}
-                textbutton={"Chọn mua"}
-                styleTextButton={{
-                  color: "#fff",
-                  fontSize: "15px",
-                  fontWeight: "700",
-                }}
-              ></ButtonComponent>
-              {errorLimitOrder && (
-                <div style={{ color: "red" }}>Sản phẩm hết hàng</div>
-              )}
-            </div>
-          </div>
-        </Col>
-        <Col span={7} style={{ paddingLeft: "20px" }}>
-          <div>
-            <p className="font-bold text-2xl">Chi tiết sản phẩm</p>
-            <p className="font-bold text-lg">Danh mục:</p>
-            <span>Đồng hồ {props.category}</span>
-            <p className="font-bold text-lg">Bộ máy:</p>
-            <span>{props.caliber}</span>
-            <p className="font-bold text-lg">Kiểu dây:</p>
-            <span>{props.type}</span>
-            <p className="font-bold text-lg">Kích cỡ:</p>
-            <span>{props.size}</span>
-            <p className="font-bold text-lg">Loại kính:</p>
-            <span>{props.glass}</span>
-            <p className="font-bold text-lg">Chịu nước:</p>
-            <span>{props.waterResistant}</span>
-          </div>
-        </Col>
-      </Row>
+          <hr className="mt-5" />
+
+          <button
+            className="bg-red-500 text-white text-xl px-10 py-2 active:bg-red-400 mt-5"
+            onClick={handleAddOrderProduct}
+          >
+            Mua ngay
+          </button>
+        </div>
+        <div className="col-span-2">
+          <p className="bg-red-500 flex items-center text-white font-medium text-2xl p-2 mt-2">
+            <UnorderedListOutlined className="mx-2" style={{ fontSize: 32 }} />
+            Chi tiết sản phẩm
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Danh mục:{" "}
+            <span className="font-normal ml-2">Đồng hồ {props.category}</span>
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Kiểu máy: <span className="font-normal ml-2">{props.caliber}</span>
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Kiểu dây: <span className="font-normal ml-2">{props.type}</span>
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Size: <span className="font-normal ml-2">{props.size}</span>
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Loại kính: <span className="font-normal ml-2">{props.glass}</span>
+          </p>
+          <p className="font-bold mt-8 text-xl">
+            Chống nước:{" "}
+            <span className="font-normal ml-2">{props.waterResistant}</span>
+          </p>
+        </div>
+        {errorLimitOrder && (
+          <div style={{ color: "red" }}>Sản phẩm hết hàng</div>
+        )}
+      </div>
     </div>
   );
 };

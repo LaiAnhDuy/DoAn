@@ -45,8 +45,8 @@ const ProductDetailsPage = () => {
     getAllProducts();
   }, [product?.brand]);
   return (
-    <div style={{ width: "100%" }}>
-      <div style={{ width: "85%", margin: "0 auto" }}>
+    <div>
+      <div>
         <ProductDetailsComponent
           description={product?.description}
           rate={product?.rating}

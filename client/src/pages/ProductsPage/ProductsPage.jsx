@@ -88,7 +88,7 @@ const ProductsPage = () => {
           },
         ];
   return (
-    <div className="px-[130px] my-10">
+    <div className="px-[150px] my-10">
       <Breadcrumb items={breadcrumbItems} />
       <div className="h-[1px] w-full my-5 bg-stone-500"></div>
 
