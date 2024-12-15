@@ -17,9 +17,9 @@ const OrderSucess = () => {
   const location = useLocation();
   const { state } = location;
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
-        <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
-          <h3>Đơn hàng đặt thành công</h3>
+    <div className="px-[150px]">
+        <div >
+          <h3 className="text-3xl fon-bold my-5">Đơn hàng đặt thành công</h3>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <WrapperContainer>
               <WrapperInfo>

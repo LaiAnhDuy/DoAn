@@ -3,12 +3,12 @@ import { expertises } from "./config";
 export default function Expertise() {
   return (
     <div className="bg-stone-100 mt-10 py-10 relative">
-      <div className="max-w-[80vw] mx-auto grid grid-cols-3 items-center">
+      <div className="px-[150px] grid grid-cols-3 items-center">
         <hr className="h-[2px] bg-stone-200" />
         <p className="text-center font-medium text-3xl">THẨM ĐỊNH ĐỒNG HỒ</p>
         <hr className="h-[2px] bg-stone-200" />
       </div>
-      <div className="max-w-[80vw] mx-auto flex justify-between gap-x-10 mt-10">
+      <div className="px-[150px] flex justify-between gap-x-10 mt-10">
         {expertises.map((expertise, index) => (
           <div key={index}>
             <div className="overflow-hidden col-span-2">

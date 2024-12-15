@@ -3,7 +3,7 @@ import Event from "./Event";
 
 export default function News() {
   return (
-    <div className="max-w-[80vw] mx-auto border-b border-x p-10 mb-10 mt-20">
+    <div className="mx-[150px] border-b border-x p-10 mb-10 mt-20">
       <p className="text-3xl mb-5">DWATCH - TIN TỨC VÀ SỰ KIỆN</p>
       <div className="w-10 h-[2px] bg-red-500 mt-2 mb-10"></div>
       <div className="grid grid-cols-4 gap-x-5">

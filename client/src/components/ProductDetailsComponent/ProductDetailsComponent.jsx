@@ -73,6 +73,38 @@ const ProductDetailsComponent = (props) => {
       }
     }
   };
+
+  const handleOrderProduct = () => {
+    if (!user?.id) {
+      dispatch(modalState({ modalSignIn: true }));
+      navigate("", { state: location?.pathname });
+    } else {
+      const orderRedux = order?.orderItems?.find(
+        (item) => item.product === props?.idProduct
+      );
+      if (
+        orderRedux?.amount + numProduct <= orderRedux?.quantity ||
+        (!orderRedux && props?.quantity > 0)
+      ) {
+        dispatch(
+          addOrderProduct({
+            orderItem: {
+              name: props?.name,
+              amount: numProduct,
+              images: props?.images,
+              price: props?.price,
+              product: props?.idProduct,
+              quantity: props?.quantity,
+            },
+          })
+        );
+        navigate("/order");
+      } else {
+        setErrorLimitOrder(true);
+      }
+    }
+  };
+
   return (
     <div>
       <div className="px-[150px] grid grid-cols-7 gap-x-5 mt-10">
@@ -168,8 +200,14 @@ const ProductDetailsComponent = (props) => {
           <hr className="mt-5" />
 
           <button
-            className="bg-red-500 text-white text-xl px-10 py-2 active:bg-red-400 mt-5"
+            className="bg-red-500 text-white text-xl px-8 py-2 active:bg-red-400 mt-5 mr-5 rounded"
             onClick={handleAddOrderProduct}
+          >
+            Thêm vào giỏ hàng
+          </button>
+          <button
+            className="bg-red-500 text-white text-xl px-8 py-2 active:bg-red-400 mt-5 rounded"
+            onClick={handleOrderProduct}
           >
             Mua ngay
           </button>

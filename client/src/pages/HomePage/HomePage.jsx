@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as ProductService from "../../services/ProductService";
 
-import { WrapperButtonMore, WrapperProducts } from "./style";
+import { WrapperButtonMore } from "./style";
 
 import CardComponent from "../../components/CardComponent/CardComponent";
 import SliderComponent from "../../components/SliderComponent/SliderComponent";
 import { useNavigate } from "react-router-dom";
 
-import { events } from "./config";
-import EventComponent from "../../components/EventComponent/EventComponent";
 import Expertise from "../../components/Expertise";
 import News from "../../components/News";
 
@@ -29,20 +27,16 @@ const HomePage = () => {
   return (
     <>
       <div
-        id="container"
-        style={{
-          padding: " 0 150px",
-          backgroundColor: "#000",
-        }}
+        className="px-[150px] bg-black"
       >
         <SliderComponent />
       </div>
-      <div className="text-4xl items-center justify-between font-medium my-10 flex">
-        <hr className="w-full ml-32" />
+      <div className="px-[150px] text-4xl items-center justify-between font-medium my-10 flex">
+        <hr className="w-full" />
         <div className="w-full text-center">Sản phẩm mới</div>
-        <hr className="w-full mr-32" />
+        <hr className="w-full" />
       </div>
-      <WrapperProducts>
+      <div className="px-[150px] grid grid-cols-4 gap-5">
         {product.slice(0, 8).map((value, index) => (
           <CardComponent
             key={index}
@@ -58,7 +52,7 @@ const HomePage = () => {
             id={value?._id}
           />
         ))}
-      </WrapperProducts>
+      </div>
       <Expertise />
       <News />
 

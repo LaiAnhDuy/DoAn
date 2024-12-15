@@ -778,7 +778,7 @@ const AdminProduct = () => {
   ];
 
   return (
-    <div>
+    <div className="px-5">
       <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
       <div style={{ marginTop: "20px" }}>
         <TableComponent

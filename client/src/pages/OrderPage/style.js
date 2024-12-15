@@ -27,9 +27,7 @@ export const WrapperStyleHeaderDilivery = styled.div`
   margin-bottom: 4px;
 `
 
-export const WrapperLeft = styled.div`
-  width: 910px;
-`
+
 
 export const WrapperListOrder = styled.div`
 

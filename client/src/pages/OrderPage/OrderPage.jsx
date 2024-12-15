@@ -5,7 +5,6 @@ import {
   WrapperCountOrder,
   WrapperInfo,
   WrapperItemOrder,
-  WrapperLeft,
   WrapperListOrder,
   WrapperRight,
   WrapperStyleHeader,
@@ -124,7 +123,7 @@ const OrderPage = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [res]);
+  }, []);
   const listCoupons = useSelector((state) => state.order.listCoupons);
   const handleDeleteOrder = (idProduct) => {
     dispatch(removeOrderProduct({ idProduct }));
@@ -245,13 +244,13 @@ const OrderPage = () => {
     },
   ];
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
-      <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
-        <h3 style={{ fontWeight: "bold" }}>Giỏ hàng</h3>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <WrapperLeft>
-            <h4>Phí giao hàng</h4>
-            <WrapperStyleHeaderDilivery>
+    <div>
+      <div className="px-[150px]">
+        <h3 className="my-5 text-3xl font-bold">Giỏ hàng</h3>
+        <div className="grid grid-cols-3 gap-x-10">
+          <div className="col-span-2">
+            <p className="mb-5">Phí giao hàng</p>
+            <div className="w-full">
               <StepComponent
                 items={itemsDelivery}
                 current={
@@ -264,64 +263,50 @@ const OrderPage = () => {
                     : 2
                 }
               />
-            </WrapperStyleHeaderDilivery>
-            <WrapperStyleHeader>
-              <span style={{ display: "inline-block", width: "390px" }}>
+            </div>
+
+            <div className="grid grid-cols-11 gap-x-5 mt-10 items-center">
+              <div className="flex gap-x-5 col-span-5">
                 <CustomCheckbox
                   onChange={handleOnchangeCheckAll}
                   checked={listChecked?.length === order?.orderItems?.length}
                 ></CustomCheckbox>
-                <span> Tất cả ({order?.orderItems?.length} sản phẩm)</span>
-              </span>
-              <div
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span>Đơn giá</span>
-                <span>Số lượng</span>
-                <span>Thành tiền</span>
+                <div> Tất cả ({order?.orderItems?.length} sản phẩm)</div>
+              </div>
+              <p className="col-span-2">Đơn giá</p>
+              <p className="col-span-2 text-center">Số lượng</p>
+              <div className="flex col-span-2">
+                <p>Thành tiền</p>
                 <DeleteOutlined
-                  style={{ cursor: "pointer" }}
+                  className="cursor-pointer ml-auto"
                   onClick={handleRemoveAllOrder}
                 />
               </div>
-            </WrapperStyleHeader>
-            <WrapperListOrder>
+            </div>
+
+            <div>
               {order?.orderItems?.map((order) => {
                 return (
-                  <WrapperItemOrder key={order?.product}>
-                    <div
-                      style={{
-                        width: "390px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                      }}
-                    >
+                  <div
+                    className="grid grid-cols-11 gap-x-5 mt-5 items-center"
+                    key={order?.product}
+                  >
+                    <div className="flex gap-x-5 col-span-5 items-center">
                       <CustomCheckbox
                         onChange={onChange}
                         value={order?.product}
                         checked={listChecked.includes(order?.product)}
                       ></CustomCheckbox>
-                      <img
-                        src={UPLOAD_BASE_URL + "/" + order?.images[0]}
-                        alt="img"
-                        width={77}
-                        height={79}
-                        style={{
-                          width: "77px",
-                          height: "79px",
-                          objectFit: "cover",
-                        }}
-                      />
+                      <div className="w-20 h-20">
+                        <img
+                          src={UPLOAD_BASE_URL + "/" + order?.images[0]}
+                          alt="img"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                       <div
+                        className="flex-1"
                         style={{
-                          width: 260,
-                          overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                         }}
@@ -329,75 +314,42 @@ const OrderPage = () => {
                         {order?.name}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        flex: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <span>
-                        <span style={{ fontSize: "13px", color: "#242424" }}>
-                          {Number(order?.price).toLocaleString("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          })}
-                        </span>
-                      </span>
-                      <WrapperCountOrder>
-                        <button
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            handleChangeCount(
-                              "decrease",
-                              order?.product,
-                              order?.amount === 1
-                            )
-                          }
-                        >
-                          <MinusOutlined
-                            style={{ color: "#000", fontSize: "10px" }}
-                          />
-                        </button>
-                        <WrapperInputNumber
-                          defaultValue={order?.amount}
-                          value={order?.amount}
-                          size="small"
-                          min={1}
-                          max={order?.quantity}
-                        />
-                        <button
-                          style={{
-                            border: "none",
-                            background: "transparent",
-                            cursor: "pointer",
-                          }}
-                          onClick={() =>
-                            handleChangeCount(
-                              "increase",
-                              order?.product,
-                              order?.amount === order.quantity,
-                              order?.amount === 1
-                            )
-                          }
-                        >
-                          <PlusOutlined
-                            style={{ color: "#000", fontSize: "10px" }}
-                          />
-                        </button>
-                      </WrapperCountOrder>
-                      <span
-                        style={{
-                          color: "rgb(255, 66, 78)",
-                          fontSize: "13px",
-                          fontWeight: 500,
-                        }}
+                    <p className="col-span-2">
+                      {Number(order?.price).toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                    </p>
+                    <div className="col-span-2 text-center border-y flex">
+                      <button
+                        className="text-xl text-white px-4 active:bg-red-400 bg-red-500 rounded-l"
+                        onClick={() =>
+                          handleChangeCount(
+                            "decrease",
+                            order?.product,
+                            order?.amount === 1
+                          )
+                        }
                       >
+                        -
+                      </button>
+                      <p className="flex-1">{order?.amount}</p>
+                      <button
+                        className="text-xl text-white px-4 active:bg-red-400 bg-red-500 rounded-r"
+                        onClick={() =>
+                          handleChangeCount(
+                            "increase",
+                            order?.product,
+                            order?.amount === order.quantity,
+                            order?.amount === 1
+                          )
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className="flex col-span-2">
+                      <p className="text-red-600">
                         {Number(order?.price * order?.amount).toLocaleString(
                           "vi-VN",
                           {
@@ -405,19 +357,19 @@ const OrderPage = () => {
                             currency: "VND",
                           }
                         )}
-                      </span>
+                      </p>
                       <DeleteOutlined
-                        style={{ cursor: "pointer" }}
-                        onClick={() => handleDeleteOrder(order?.product)}
+                        className="cursor-pointer ml-auto"
+                        onClick={handleRemoveAllOrder}
                       />
                     </div>
-                  </WrapperItemOrder>
+                  </div>
                 );
               })}
-            </WrapperListOrder>
-          </WrapperLeft>
-          <WrapperRight>
-            <div style={{ width: "100%" }}>
+            </div>
+          </div>
+          <div>
+            <div>
               <WrapperInfo>
                 <div className="flex flex-col">
                   <span>
@@ -552,6 +504,8 @@ const OrderPage = () => {
                 </span>
               </WrapperTotal>
             </div>
+            <div>
+
             <ButtonComponent
               onClick={() => handleAddCard()}
               size={40}
@@ -569,7 +523,10 @@ const OrderPage = () => {
                 fontWeight: "700",
               }}
             ></ButtonComponent>
-          </WrapperRight>
+            
+            </div>
+          </div>
+          
         </div>
       </div>
       <ModalComponent

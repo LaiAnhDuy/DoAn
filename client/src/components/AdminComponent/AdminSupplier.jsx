@@ -297,7 +297,7 @@ export default function AdminSupplier() {
     }
   }, [district]);
   return (
-    <div>
+    <div className="px-5">
       <WrapperHeader>Quản lý nhà cung cấp</WrapperHeader>
       <div className="mt-6">
         <TableComponent

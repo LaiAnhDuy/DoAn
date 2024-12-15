@@ -210,7 +210,7 @@ export default function AdminCoupon() {
     });
 
   return (
-    <div>
+    <div className="px-5">
       <WrapperHeader>Quản lý mã giảm giá</WrapperHeader>
       <div className="mt-6">
         <TableComponent
@@ -302,7 +302,7 @@ export default function AdminCoupon() {
       >
         <div>Bạn có chắc muốn xóa mã giảm giá này không?</div>
         <div className="flex justify-center gap-x-2 mt-4">
-        <Button  onClick={handleDeleteCoupon}>Xóa</Button>
+          <Button onClick={handleDeleteCoupon}>Xóa</Button>
         </div>
       </ModalComponent>
     </div>

@@ -298,7 +298,7 @@ const PaymentPage = () => {
                     {" "}
                     Thanh toán tiền mặt khi nhận hàng
                   </Radio>
-                  <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio>
+                  {/* <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio> */}
                 </WrapperRadio>
               </div>
             </WrapperInfo>

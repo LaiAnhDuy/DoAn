@@ -68,22 +68,16 @@ const ProductDetailsPage = () => {
             suppliers?.filter((item) => item._id === product?.supplier)[0]?.name
           }
         />
-        <div
-          style={{
-            backgroundColor: "#fff",
-            height: "100px",
-          }}
-        >
-          <div style={{ borderTop: "1px solid #e5e5e5" }}>
-            <h1 className="font-bold text-3xl" style={{ marginLeft: "20px" }}>
+        {/* comment */}
+          <div className="mt-10 px-[150px]">
+            <h1 className="font-bold text-3xl">
               Bình luận
             </h1>
             <Comment productId={product?._id} />
           </div>
-          <div
-            style={{ borderTop: "1px solid #e5e5e5", paddingBottom: "20px" }}
-          >
-            <h1 className="font-bold text-3xl" style={{ marginLeft: "20px" }}>
+          {/* Related Products */}
+          <div className="px-[150px]">
+            <h1 className="font-bold text-3xl my-10">
               Sản phẩm liên quan
             </h1>
             {products?.length > 4 ? (
@@ -136,7 +130,6 @@ const ProductDetailsPage = () => {
               </div>
             )}
           </div>
-        </div>
       </div>
     </div>
   );

@@ -14,12 +14,4 @@ export const WrapperButtonMore = styled(ButtonComponent)`
   text-align: center;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointers")};
 `;
-export const WrapperProducts = styled.div`
-  padding: 0 120px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+

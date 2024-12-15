@@ -139,8 +139,8 @@ const MyOrderPage = () => {
   };
   return (
     <WrapperContainer>
-      <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
-        <h4>Đơn hàng của tôi</h4>
+      <div className="px-[150px]">
+        <h4 className="text-3xl my-5 font-bold">Đơn hàng của tôi</h4>
         <Tabs
           defaultActiveKey="1"
           onChange={onChange}
