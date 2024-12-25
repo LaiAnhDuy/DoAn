@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import * as OrderService from "../../services/OrderService";
 
@@ -27,14 +27,9 @@ const MyOrderPage = () => {
     return res?.data;
   };
 
-  const queryOrder = useQuery(
-    { queryKey: ["orders"], queryFn: fetchMyOrder }
-    // {
-    //   enabled: state?.id && state?.token,
-    // }
-  );
+  const queryOrder = useQuery({ queryKey: ["orders"], queryFn: fetchMyOrder });
 
-  const { isLoading, data } = queryOrder;
+  const { data } = queryOrder;
   const handleDetailsOrder = (id) => {
     navigate(`/details-order/${id}`, {
       state: {
@@ -62,8 +57,18 @@ const MyOrderPage = () => {
       }
     );
   };
+  const handleReview = async (productId, orderId, index) => {
+    localStorage.setItem(
+      "review",
+      JSON.stringify({
+        orderId,
+        index,
+      })
+    );
+    navigate(`/review/${productId}`);
+  };
+
   const {
-    isLoading: isLoadingCancel,
     isSuccess: isSuccessCancel,
     isError: isErrorCancle,
     data: dataCancel,
@@ -77,14 +82,14 @@ const MyOrderPage = () => {
     } else if (isErrorCancle) {
       message.error();
     }
-  }, [isErrorCancle, isSuccessCancel]);
-  const renderProduct = (data) => {
-    return data?.map((order) => {
+  }, [isErrorCancle, isSuccessCancel, dataCancel]);
+  const renderProduct = (data, orderId) => {
+    return data?.map((product, index) => {
       return (
-        <WrapperHeaderItem key={order?._id}>
+        <WrapperHeaderItem key={product?._id}>
           <img
             alt="#"
-            src={UPLOAD_BASE_URL + "/" + order?.images[0]}
+            src={UPLOAD_BASE_URL + "/" + product?.images[0]}
             style={{
               width: "100px",
               height: "100px",
@@ -102,15 +107,37 @@ const MyOrderPage = () => {
               marginLeft: "10px",
             }}
           >
-            {order?.name}
+            {product?.name}
           </div>
           <span
             style={{ fontSize: "13px", color: "#242424", marginLeft: "auto" }}
           >
-            {Number(order?.price).toLocaleString("vi-VN", {
-              style: "currency",
-              currency: "VND",
-            })}
+            <div className="mb-5">
+              {Number(product?.price).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </div>
+            {product.isReview ? (
+              <p>Đã đánh giá</p>
+            ) : (
+              <ButtonComponent
+                onClick={() => {
+                  handleReview(product?.product, orderId, index);
+                }}
+                size={40}
+                styleButton={{
+                  height: "36px",
+                  border: "1px solid #9255FD",
+                  borderRadius: "4px",
+                }}
+                textbutton={"Đánh giá"}
+                styleTextButton={{
+                  color: "#9255FD",
+                  fontSize: "14px",
+                }}
+              ></ButtonComponent>
+            )}
           </span>
         </WrapperHeaderItem>
       );
@@ -134,16 +161,13 @@ const MyOrderPage = () => {
       key: "cancel",
     },
   ];
-  const onChange = (key) => {
-    const test = [];
-  };
+
   return (
     <WrapperContainer>
-      <div className="px-[150px]">
-        <h4 className="text-3xl my-5 font-bold">Đơn hàng của tôi</h4>
+      <div className="px-[150px] min-h-[400px]">
+        <h4 className="text-3xl py-5 font-bold">Đơn hàng của tôi</h4>
         <Tabs
           defaultActiveKey="1"
-          onChange={onChange}
           items={items.map((item) => {
             return {
               label:
@@ -183,7 +207,7 @@ const MyOrderPage = () => {
                               }`}</span>
                             </div>
                           </WrapperStatus>
-                          {renderProduct(order?.orderItem)}
+                          {renderProduct(order?.orderItem, order._id)}
                           <WrapperFooterItem>
                             <div>
                               <span style={{ color: "rgb(255, 66, 78)" }}>
@@ -216,9 +240,9 @@ const MyOrderPage = () => {
                                 <p className="text-red-500">Đơn hàng đã hủy</p>
                               ) : order.status === "shipping" ? (
                                 "Đơn hàng đang giao"
-                              ) :order.status ==="done" ?(
+                              ) : order.status === "done" ? (
                                 "Đơn hàng đã giao"
-                              ) :(
+                              ) : (
                                 <ButtonComponent
                                   onClick={() => handleCanceOrder(order)}
                                   size={40}

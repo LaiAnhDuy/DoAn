@@ -33,7 +33,6 @@ export default function Comment({ productId }) {
   // const handleChange5 = (event) => {
   //   setValue5(event.target.value);
   // };
-  console.log(value2);
   const access_token = localStorage.getItem("access_token");
   const auth = useSelector((state) => state.user);
   const avatar = auth?.fullName.charAt(0).toUpperCase();
@@ -101,7 +100,7 @@ export default function Comment({ productId }) {
               <div className="mt-2 flex flex-col  p-3 bg-white">
                 <div className="flex items-center ">
                   <div
-                    className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
+                    className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white ml-3 mr-5`}
                   >
                     <p className=" text-black w-8 h-8 text-xl m-0">{avatar}</p>
                   </div>

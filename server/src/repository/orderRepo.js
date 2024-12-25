@@ -6,6 +6,10 @@ const findOrder = async (filters) => {
 
 const getAllOrders = async (filters) => {
   return await Order.find(filters);
+  // .populate({
+  //   path: "orderItem.product", // Path to the `product` field in `orderItem`
+  //   model: "Product", // Reference to the `Product` model
+  // });
 };
 
 const createOrder = async (order, session) => {

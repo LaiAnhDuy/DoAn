@@ -41,7 +41,7 @@ export default function Dashboard() {
   }, []);
   return (
     <div className="w-full h-full px-10">
-      {/* {data && (
+      {data && (
         <>
           <div className="grid grid-cols-2 items-center">
             <div className="flex flex-col items-center">
@@ -119,7 +119,7 @@ export default function Dashboard() {
         <div className="w-full h-screen flex items-center justify-center">
           <Spin size="large" />
         </div>
-      )} */}
+      )}
     </div>
   );
 }

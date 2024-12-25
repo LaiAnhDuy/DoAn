@@ -8,6 +8,7 @@ import MyOrderPage from "../pages/MyOder";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import OrderSucess from "../pages/OrderSuccess";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
+import Review from "../pages/Review";
 
 export const routes = [
   {
@@ -53,6 +54,11 @@ export const routes = [
   {
     path: "/details-order/:id",
     element: DetailsOrderPage,
+    isShowHeader: true,
+  },
+  {
+    path: "/review/:id",
+    element: Review,
     isShowHeader: true,
   },
   {

@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const Order = require("../models/OrderModel");
 
 const ProductRepo = require("../repository/productRepo");
 
@@ -177,18 +178,36 @@ const createReview = async (req, res, next) => {
     if (!product) {
       return res.status(400).json({ message: "Product not found" });
     }
-    if (product.reviews.find((review) => review.userId === req.payload.id)) {
-      return res
-        .status(400)
-        .json({ message: "You have already reviewed this product" });
-    }
 
+    const { reviewData, orderId } = req.body;
     const review = await ProductRepo.createReview({
       productId,
       userId: req.payload.id,
-      fullName: req.payload.fullName,
-      ...req.body,
+      ...reviewData,
     });
+    const updatedProduct = await ProductRepo.findProduct({ _id: productId });
+    const allReviews = updatedProduct.reviews;
+    const numReviews = allReviews.length;
+    if (numReviews > 0) {
+      const rating =
+        allReviews.reduce((acc, current) => acc + current.star, 0) / numReviews;
+      await ProductRepo.updateProduct({
+        productId,
+        update: {
+          numReviews,
+          rating,
+        },
+      });
+    }
+    await Order.updateOne(
+      {
+        _id: orderId,
+        "orderItem.product": productId,
+      },
+      {
+        $set: { "orderItem.$.isReview": true },
+      }
+    );
     return res.status(200).json({ message: "Review created", data: review });
   } catch (error) {
     next(error);

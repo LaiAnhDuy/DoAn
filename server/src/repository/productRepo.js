@@ -6,7 +6,7 @@ const findProductByName = async (name) => {
 };
 const findProduct = async (filters) => {
   return await Product.findOne(filters);
-}
+};
 
 const createProduct = async (product) => {
   const newProduct = new Product(product);
@@ -15,6 +15,7 @@ const createProduct = async (product) => {
 
 const updateProduct = async (data) => {
   const { productId, update } = data;
+  console.log(productId, update );
   const updatedProduct = await Product.findOneAndUpdate(
     { _id: productId },
     update,
@@ -41,10 +42,10 @@ const getAllBrands = async () => {
   return Product.distinct("brand");
 };
 const createReview = async (data) => {
-  const { productId, userId, fullName, comment, start } = data;
+  const { productId, userId, fullName, comment, star } = data;
   return await Product.findOneAndUpdate(
     { _id: productId },
-    { $push: { reviews: { userId, fullName, comment, start } } },
+    { $push: { reviews: { userId, fullName, comment, star } } },
     { new: true }
   );
 };

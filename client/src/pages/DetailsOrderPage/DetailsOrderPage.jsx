@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  WrapperContentInfo,
-  WrapperHeaderUser,
-  WrapperInfoUser,
-  WrapperItem,
-  WrapperItemLabel,
-  WrapperLabel,
-  WrapperNameProduct,
-  WrapperProduct,
-  WrapperStyleContent,
-} from "./style";
 import { useParams } from "react-router-dom";
 import * as OrderService from "../../services/OrderService";
-import { orderContant } from "../../contant";
-import { useMemo } from "react";
 import { UPLOAD_BASE_URL } from "../../config";
 import { mapColors, mapIcons, mapStatus } from "../../util/contant";
 import { getListAddresses } from "../../redux/slides/orderSlide";

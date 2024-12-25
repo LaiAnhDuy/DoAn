@@ -74,7 +74,6 @@ const createOrder = async (req, res, next) => {
     void Mail.sendEmailOrderProduct({
       fullName: req.payload.fullName,
       email: req.payload.email,
-      // orderId: order.id,
       orderItem: order.orderItem,
       totalPrice: order.totalPrice,
     }).catch((err) => console.log(err));
