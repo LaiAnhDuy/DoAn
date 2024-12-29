@@ -1,0 +1,34 @@
+import { Image } from "antd";
+import React from "react";
+import { WrapperSliderStyle } from "./style";
+import { CarouselData } from "./CarouselData";
+
+const Carousel = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+  };
+  return (
+    <WrapperSliderStyle {...settings}>
+      {CarouselData.map((image) => {
+        return (
+          <Image
+            key={image}
+            src={image}
+            alt="slider"
+            preview={false}
+            width="100%"
+            height="400px"
+          />
+        );
+      })}
+    </WrapperSliderStyle>
+  );
+};
+
+export default Carousel;

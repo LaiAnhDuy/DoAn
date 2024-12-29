@@ -9,6 +9,8 @@ import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import OrderSucess from "../pages/OrderSuccess";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import Review from "../pages/Review";
+import Knowledge from "../pages/Knowledge";
+import Fix from "../pages/Fix";
 
 export const routes = [
   {
@@ -16,7 +18,16 @@ export const routes = [
     element: HomePage,
     isShowHeader: true,
   },
-
+  {
+    path: "/knowledge",
+    element: Knowledge,
+    isShowHeader: true,
+  },
+  {
+    path: "/fix",
+    element: Fix,
+    isShowHeader: true,
+  },
   { path: "/payment", element: PaymentPage, isShowHeader: true },
   {
     path: "/my-order",

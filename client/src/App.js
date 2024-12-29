@@ -7,7 +7,6 @@ import { routes } from "./routes";
 import * as UserService from "./services/UserService";
 import { resetUser, updateUser } from "./redux/slides/userSlide";
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
-import Footer from "./components/FooterComponent/FooterComponent";
 
 function App() {
   const dispatch = useDispatch();
@@ -83,7 +82,6 @@ function App() {
                     <Layout>
                       <Page />
                     </Layout>
-                    <Footer />
                   </>
                 }
               />

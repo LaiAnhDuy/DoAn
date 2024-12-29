@@ -135,8 +135,8 @@ const HeaderComponent = () => {
     { title: "THƯƠNG HIỆU", url: "/products" },
     { title: "ĐỒNG HỒ NAM", url: "/products/donghonam" },
     { title: "ĐỒNG HỒ NỮ", url: "/products/donghonu" },
-    { title: "SỬA CHỮA", url: "/products" },
-    { title: "KIẾN THỨC", url: "/products" },
+    { title: "SỬA CHỮA", url: "/fix" },
+    { title: "KIẾN THỨC", url: "/knowledge" },
     { title: "PHỤ KIỆN", url: "/products" },
   ];
   return (

@@ -48,7 +48,7 @@ export default function Dashboard() {
               {
                 <Pie
                   data={{
-                    labels: ["Đồng hồ nam", "Dồng hồ nữ"],
+                    labels: ["Đồng hồ nam", "Đồng hồ nữ"],
                     datasets: [
                       {
                         label: "Số lượng đồng hồ",
