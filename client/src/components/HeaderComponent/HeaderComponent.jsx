@@ -137,7 +137,7 @@ const HeaderComponent = () => {
     { title: "ĐỒNG HỒ NỮ", url: "/products/donghonu" },
     { title: "SỬA CHỮA", url: "/fix" },
     { title: "KIẾN THỨC", url: "/knowledge" },
-    { title: "PHỤ KIỆN", url: "/products" },
+    { title: "BẢO HÀNH", url: "/guarantee" },
   ];
   return (
     <div>

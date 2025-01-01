@@ -263,7 +263,7 @@ const OrderAdmin = () => {
   };
 
   return (
-    <div>
+    <div className="px-5">
       <WrapperHeader>Quản lý đơn hàng</WrapperHeader>
       <div style={{ marginTop: "20px" }}>
         <TableComponent

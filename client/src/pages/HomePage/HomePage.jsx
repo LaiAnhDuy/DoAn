@@ -26,9 +26,7 @@ const HomePage = () => {
   }, []);
   return (
     <>
-      <div
-        className="px-[150px] bg-black"
-      >
+      <div className="px-[150px] bg-black">
         <SliderComponent />
       </div>
       <div className="px-[150px] text-4xl items-center justify-between font-medium my-10 flex">
@@ -53,9 +51,6 @@ const HomePage = () => {
           />
         ))}
       </div>
-      <Expertise />
-      <News />
-
       <div
         style={{
           width: "100%",
@@ -80,6 +75,8 @@ const HomePage = () => {
           styleTextButton={{ fontWeight: 500 }}
         />
       </div>
+      <Expertise />
+      <News />
     </>
   );
 };

@@ -42,7 +42,7 @@ const TableComponent = (props) => {
           marginBottom: "10px",
         }}
       >
-        <Button onClick={exportExcel}>Xuất excel</Button>
+        <Button onClick={exportExcel} className="mb-5">Xuất excel</Button>
         {keyselected === "users" ? (
           <Button onClick={createUser}>Thêm người dùng</Button>
         ) : keyselected === "product" ? (

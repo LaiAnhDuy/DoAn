@@ -11,6 +11,7 @@ import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import Review from "../pages/Review";
 import Knowledge from "../pages/Knowledge";
 import Fix from "../pages/Fix";
+import Guarantee from "../pages/Guarantee";
 
 export const routes = [
   {
@@ -26,6 +27,11 @@ export const routes = [
   {
     path: "/fix",
     element: Fix,
+    isShowHeader: true,
+  },
+  {
+    path: "/guarantee",
+    element: Guarantee,
     isShowHeader: true,
   },
   { path: "/payment", element: PaymentPage, isShowHeader: true },
