@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import { updateUser } from "../../services/UserService";
 
 import * as UserService from "../../services/UserService";
-import {
-  WrapperContentProfile,
-  WrapperHeader,
-  WrapperInput,
-  WrapperLabel,
-} from "./style";
 import InputFormComponent from "../InputFormComponent/InputFormComponent";
-import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import * as message from "../../components/Message/Message";
 import ChangePasswordComponent from "../ChangePasswordComponent/ChangePasswordComponent";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import { Form } from "antd";
 
 const ProfileComponent = ({ handleCancelProfile }) => {
   const user = useSelector((state) => state.user);
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [form] = Form.useForm();
   const [isModalOpenChangePassword, setIsModalOpenChangePassword] =
     useState(false);
   const access_token = localStorage.getItem("access_token");
@@ -30,183 +21,113 @@ const ProfileComponent = ({ handleCancelProfile }) => {
     UserService.updateUser(id, rests, access_token);
   });
 
-  const dispatch = useDispatch();
-  const { isSuccess, isError } = mutation;
-
   useEffect(() => {
-    setEmail(user?.email);
-    setFullName(user?.fullName);
-    setPhone(user?.phone);
-    setAddress(user?.address);
-  }, [user]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      message.success("Cập nhật thành công");
-      handleGetDetailsUser(user?.id, user?.access_token);
-    } else if (isError) {
-      message.error();
+    if (user) {
+      form.setFieldsValue({
+        fullName: user?.fullName,
+        email: user?.email,
+        phone: user?.phone,
+        address: user?.address,
+      });
     }
-  }, [isSuccess, isError]);
+  }, [user, form]);
 
   const handleGetDetailsUser = async (id, token) => {
     const res = await UserService.getDetailsUser(id, token);
     updateUser({ ...res?.data, access_token: token });
-    console.log(res);
   };
 
-  const handleOnchangeEmail = (value) => {
-    setEmail(value);
-  };
-  const handleOnchangeName = (value) => {
-    setFullName(value);
-  };
-  const handleOnchangePhone = (value) => {
-    setPhone(value);
-  };
-  const handleOnchangeAddress = (value) => {
-    setAddress(value);
-  };
   const handleCancelChangePassword = () => {
     setIsModalOpenChangePassword(false);
   };
 
-  const handleUpdate = () => {
-    mutation.mutate({
-      id: user?.id,
-      email,
-      fullName,
-      phone,
-      address,
-      access_token: access_token,
-    });
+  const handleUpdate = (values) => {
+    console.log(values);
+    mutation.mutate(
+      {
+        id: user?.id,
+        ...values,
+        access_token: access_token,
+      },
+      {
+        onSuccess: () => {
+          message.success("Cập nhật thành công");
+          handleGetDetailsUser(user?.id, user?.access_token);
+          handleCancelProfile();
+        },
+      }
+    );
   };
+
   return (
     <div>
-      <WrapperHeader>Thông tin người dùng</WrapperHeader>
-      <WrapperContentProfile>
-        <WrapperInput>
-          <WrapperLabel htmlFor="name">Họ tên</WrapperLabel>
-          <InputFormComponent
-            style={{ width: "250px" }}
-            value={fullName}
-            onChange={handleOnchangeName}
-          />
-          <ButtonComponent
-            onClick={handleUpdate}
-            size={40}
-            styleButton={{
-              height: "30px",
-              width: "fit-content",
-              borderRadius: "4px",
-              padding: "2px 6px 6px",
-            }}
-            textbutton={"Cập nhật"}
-            styleTextButton={{
-              color: "rgb(26, 148, 255)",
-              fontSize: "15px",
-              fontWeight: "700",
-            }}
-          ></ButtonComponent>
-        </WrapperInput>
-        <WrapperInput>
-          <WrapperLabel htmlFor="email">Email</WrapperLabel>
-          <InputFormComponent
-          disabled={true}
-            style={{ width: "250px" }}
-            id="email"
-            value={email}
-            onChange={handleOnchangeEmail}
-          />
-          <ButtonComponent
-            onClick={handleUpdate}
-            size={40}
-            styleButton={{
-              height: "30px",
-              width: "fit-content",
-              borderRadius: "4px",
-              padding: "2px 6px 6px",
-            }}
-            textbutton={"Cập nhật"}
-            styleTextButton={{
-              color: "rgb(26, 148, 255)",
-              fontSize: "15px",
-              fontWeight: "700",
-            }}
-          ></ButtonComponent>
-        </WrapperInput>
-        <WrapperInput>
-          <WrapperLabel htmlFor="phone">Số điện thoại</WrapperLabel>
-          <InputFormComponent
-            style={{ width: "250px" }}
-            id="email"
-            value={phone}
-            onChange={handleOnchangePhone}
-          />
-          <ButtonComponent
-            onClick={handleUpdate}
-            size={40}
-            styleButton={{
-              height: "30px",
-              width: "fit-content",
-              borderRadius: "4px",
-              padding: "2px 6px 6px",
-            }}
-            textbutton={"Cập nhật"}
-            styleTextButton={{
-              color: "rgb(26, 148, 255)",
-              fontSize: "15px",
-              fontWeight: "700",
-            }}
-          ></ButtonComponent>
-        </WrapperInput>
-        <WrapperInput>
-          <WrapperLabel htmlFor="address">Địa chỉ</WrapperLabel>
-          <InputFormComponent
-            style={{ width: "250px" }}
-            id="address"
-            value={address}
-            onChange={handleOnchangeAddress}
-          />
-          <ButtonComponent
-            onClick={handleUpdate}
-            size={40}
-            styleButton={{
-              height: "30px",
-              width: "fit-content",
-              borderRadius: "4px",
-              padding: "2px 6px 6px",
-            }}
-            textbutton={"Cập nhật"}
-            styleTextButton={{
-              color: "rgb(26, 148, 255)",
-              fontSize: "15px",
-              fontWeight: "700",
-            }}
-          ></ButtonComponent>
-        </WrapperInput>
-        <WrapperInput style={{ display: "flex", justifyContent: "center" }}>
-          <ButtonComponent
-            onClick={() => {
-              setIsModalOpenChangePassword(true);
-              handleCancelProfile();
-            }}
-            size={40}
-            styleButton={{
-              height: "30px",
-              width: "fit-content",
-              borderRadius: "4px",
-              padding: "2px 6px 6px",
-            }}
-            textbutton={"Đổi mật khẩu"}
-            styleTextButton={{
-              color: "rgb(26, 148, 255)",
-              fontSize: "15px",
-              fontWeight: "700",
-            }}
-          ></ButtonComponent>
-        </WrapperInput>
-      </WrapperContentProfile>
+      <div className="mb-5 text-xl text-center font-medium">
+        Thông tin người dùng
+      </div>
+
+      <div className="p-5 border border-stone-400 rounded-xl ">
+        <Form
+          form={form}
+          onFinish={handleUpdate}
+          labelCol={{ span: 8}}
+          labelAlign="left"
+        >
+          <Form.Item
+            label="Họ tên"
+            name="fullName"
+            rules={[{ required: true, message: "Họ tên không được để trống" }]}
+          >
+            <InputFormComponent />
+          </Form.Item>
+
+          <Form.Item label="Email" name="email" rules={[{ required: true }]}>
+            <InputFormComponent disabled={true} />
+          </Form.Item>
+
+          <Form.Item
+            label="Số điện thoại"
+            name="phone"
+            rules={[
+              { required: true, message: "Số điện thoại không được để trống" },
+              {
+                pattern: /^[0-9]+$/,
+                message: "Số điện thoại chỉ được chứa số",
+              },
+            ]}
+          >
+            <InputFormComponent />
+          </Form.Item>
+
+          <Form.Item
+            label="Địa chỉ"
+            name="address"
+            rules={[{ required: true, message: "Địa chỉ không được để trống" }]}
+          >
+            <InputFormComponent  />
+          </Form.Item>
+
+          <div className="flex justify-end mb-5">
+            <button
+              className="underline text-blue-500"
+              onClick={() => {
+                setIsModalOpenChangePassword(true);
+                handleCancelProfile();
+              }}
+            >
+              Đổi mật khẩu
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              className="bg-red-500 text-white px-8 py-2 active:bg-red-400 rounded"
+              type="submit"
+            >
+              Cập nhật thông tin
+            </button>
+          </div>
+        </Form>
+      </div>
+
       <ModalComponent
         open={isModalOpenChangePassword}
         onCancel={handleCancelChangePassword}

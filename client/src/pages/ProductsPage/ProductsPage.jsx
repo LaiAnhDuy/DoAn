@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBarComponent from "../../components/NavBarComponent/NavBarComponent";
 import CardComponent from "../../components/CardComponent/CardComponent";
-import { Breadcrumb, Col, Pagination, Row } from "antd";
-import { WrapperProducts } from "./style";
+import { Breadcrumb, Pagination } from "antd";
 import * as ProductService from "../../services/ProductService";
 import * as BrandService from "../../services/BrandService";
 import { useDispatch, useSelector } from "react-redux";
@@ -120,21 +119,13 @@ const ProductsPage = () => {
           </div>
         ))}
       </div>
-      
-      <Row
-        style={{
-          flexWrap: "nowrap",
-          paddingTop: "10px",
-        }}
-      >
-        <div span={6} className="flex gap-x-5 mr-5">
-          <NavBarComponent />
-          <div className="w-[1px] bg-stone-400"></div>
-        </div>
-        <Col span={18}  className="">
+
+      <div className="grid grid-cols-5 gap-x-10 mt-10">
+        <NavBarComponent />
+        <div className="col-span-4 border-l pl-10">
           {product.length > 0 ? (
-            <div>
-              <WrapperProducts>
+            <>
+              <div className="grid grid-cols-3 gap-10">
                 {product.slice(startIndex, startIndex + 8).map((value) => (
                   <CardComponent
                     type={value?.type}
@@ -149,19 +140,19 @@ const ProductsPage = () => {
                     id={value?._id}
                   />
                 ))}
-              </WrapperProducts>
+              </div>
               <Pagination
                 defaultCurrent={1}
                 total={product.length}
                 onChange={onChange}
                 style={{ textAlign: "center", marginTop: "10px" }}
               />
-            </div>
+            </>
           ) : (
             <p className="text-2xl">Không có sản phẩm nào.</p>
           )}
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

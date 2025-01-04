@@ -93,20 +93,32 @@ const HeaderComponent = () => {
 
   const content = (
     <div>
-      <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate("profile")}>
+      <div
+        className="cursor-pointer hover:bg-red-500 p-2 hover:text-white"
+        onClick={() => handleClickNavigate("profile")}
+      >
         Thông tin người dùng
       </div>
       {user?.role === "admin" && (
-        <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate("admin")}>
+        <div
+          className="cursor-pointer hover:bg-red-500 p-2 hover:text-white"
+          onClick={() => handleClickNavigate("admin")}
+        >
           Quản lí hệ thống
         </div>
       )}
       {user?.role === "user" && (
-        <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate(`my-order`)}>
+        <div
+          className="cursor-pointer hover:bg-red-500 p-2 hover:text-white"
+          onClick={() => handleClickNavigate(`my-order`)}
+        >
           Đơn hàng của tôi
         </div>
       )}
-      <div className="cursor-pointer hover:bg-red-500 p-2 hover:text-white" onClick={() => handleClickNavigate()}>
+      <div
+        className="cursor-pointer hover:bg-red-500 p-2 hover:text-white"
+        onClick={() => handleClickNavigate()}
+      >
         Đăng xuất
       </div>
     </div>
@@ -181,6 +193,7 @@ const HeaderComponent = () => {
                     content={content}
                     trigger="click"
                     open={isOpenPopup}
+                    onOpenChange={() => setIsOpenPopup(false)}
                   >
                     <div
                       style={{

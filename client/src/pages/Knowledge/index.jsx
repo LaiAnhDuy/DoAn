@@ -1,22 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { items, knowledge_items, majorItems, realOrFakeItems } from "./config";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EastIcon from "@mui/icons-material/East";
 
 const Knowledge = () => {
   const navigate = useNavigate();
   return (
     <div className="max-w-[80vw] mx-auto">
-      <div className="flex gap-x-2 items-center my-10">
-        <button className="opacity-60" onClick={() => navigate("/")}>
-          Trang chủ
-        </button>
-        <ArrowForwardIosIcon className="opacity-60" style={{ fontSize: 12 }} />
+      <div className="flex gap-x-2 items-center mt-10 opacity-60 text-[14px]">
+        <button onClick={() => navigate("/")}>Trang chủ</button>/
         <p>Kiến thức đồng hồ</p>
       </div>
-
-      <p className="text-3xl">Kiến thức đồng hồ</p>
       <hr className="w-full my-5" />
+      <p className="text-3xl mb-5">Kiến thức đồng hồ</p>
 
       <div className="grid grid-cols-2 gap-x-5">
         <div>
