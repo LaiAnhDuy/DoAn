@@ -1,20 +1,19 @@
 # web-watch
 
-
 ## 1. User
 
-* Base URL: http://localhost:3001/api/user/
-* Đối tượng User
+- Base URL: http://localhost:3001/api/user/
+- Đối tượng User
 
-| Field       | Type    | Require | Desciption                        |
-| ----------- | ------- | ------- | --------------------------------- |
-| userId      | string  | require | id người dùng                     |
-| fullName    | string  | require | họ tên của người dùng             |
-| email       | string  | require | email của người dùng              |
-| password    | string  | require | mật khẩu của người dùng           |
-| phone       | number  | require | số điện thoại của người dùng      |
-| address     | string  | require | Địa chỉ của người dùng           |
-| role        | string  | require | vai trò của người dùng            |
+| Field    | Type   | Require | Desciption                   |
+| -------- | ------ | ------- | ---------------------------- |
+| userId   | string | require | id người dùng                |
+| fullName | string | require | họ tên của người dùng        |
+| email    | string | require | email của người dùng         |
+| password | string | require | mật khẩu của người dùng      |
+| phone    | number | require | số điện thoại của người dùng |
+| address  | string | require | Địa chỉ của người dùng       |
+| role     | string | require | vai trò của người dùng       |
 
 ### 1.1 Login
 
@@ -37,13 +36,13 @@
   - Path: /users/sign-up
   - Body:
 
-  | Field     | Type    | Require | Desciption                   |
-  | --------- | ------ | ------- | ----------------------------- |
-  | fullName  | string | require | họ tên của người dùng         |
-  | email     | string | require | email của người dùng          |
-  | password  | string | require | mật khẩu của người dùng       |
-  | phone     | number | require | số điện thoại  của người dùng |
-  | address   | string | require | địa chỉ của người dùng       |
+  | Field    | Type   | Require | Desciption                   |
+  | -------- | ------ | ------- | ---------------------------- |
+  | fullName | string | require | họ tên của người dùng        |
+  | email    | string | require | email của người dùng         |
+  | password | string | require | mật khẩu của người dùng      |
+  | phone    | number | require | số điện thoại của người dùng |
+  | address  | string | require | địa chỉ của người dùng       |
 
   ### 1.4 Forgot password
 
@@ -77,13 +76,13 @@
   - Path: /users/:userId
   - body:
 
-  | Field              | Type   | Require | Description                      |
-  | ------------------ | ------ | ------- | -------------------------------- |
-  | fullName           | string | require | họ tên của người dùng            |
-  | email              | string | require | email của người dùng             |
-  | password           | string | require | mật khẩu của người dùng          |
-  | phone              | number | require | số điện thoại  của người dùng    |
-  | address            | string | require | địa chỉ của người dùng           |
+  | Field    | Type   | Require | Description                  |
+  | -------- | ------ | ------- | ---------------------------- |
+  | fullName | string | require | họ tên của người dùng        |
+  | email    | string | require | email của người dùng         |
+  | password | string | require | mật khẩu của người dùng      |
+  | phone    | number | require | số điện thoại của người dùng |
+  | address  | string | require | địa chỉ của người dùng       |
 
 ### 1.7 Delete user
 
@@ -107,25 +106,25 @@
   - Path: /user/list
 
 ## 2. Product
-* Base URL: http://localhost:3001/api/product/
-* Đối tượng Product
 
-| Field       | Type    | Require | Desciption                        |
-| ----------- | ------- | ------- | --------------------------------- |
-| producId    | string  | require | id của sản phẩm                   |
-| name        | string  | require | tên của sản phẩm                  |
-| images      | string  | require | ảnh của sản phẩm                  |
-| type        | string  | require | kiểu dáng của sản phẩm            |
-| brand       | string  | require | thương hiệu của sản phẩm          |
-| category    | string  | require | loại sản phẩm                     |
-| price       | number  | require | giá bán của sản phẩm              |
-| quantity    | number  | require | số lượng sản phẩm                 |
-| description | string  | require | mô tả của sản phẩm                |
-| caliber     | string  | require | bộ máy của sản phẩm               |
-| rating      | number  | require | số sao của sản phẩm               |
-| numReviews  | number  | require | Số lượng đánh giá sản phẩm        |
-| blog        | string  | require | bài viết của sản phẩm             |
+- Base URL: http://localhost:3001/api/product/
+- Đối tượng Product
 
+| Field       | Type   | Require | Desciption                 |
+| ----------- | ------ | ------- | -------------------------- |
+| producId    | string | require | id của sản phẩm            |
+| name        | string | require | tên của sản phẩm           |
+| images      | string | require | ảnh của sản phẩm           |
+| type        | string | require | kiểu dáng của sản phẩm     |
+| brand       | string | require | thương hiệu của sản phẩm   |
+| category    | string | require | loại sản phẩm              |
+| price       | number | require | giá bán của sản phẩm       |
+| quantity    | number | require | số lượng sản phẩm          |
+| description | string | require | mô tả của sản phẩm         |
+| caliber     | string | require | bộ máy của sản phẩm        |
+| rating      | number | require | số sao của sản phẩm        |
+| numReviews  | number | require | Số lượng đánh giá sản phẩm |
+| blog        | string | require | bài viết của sản phẩm      |
 
 ### 2.1 add product
 
@@ -135,67 +134,99 @@
   - Path: /
   - Body:
 
-| Field       | Type    | Require | Desciption                        |
-| ----------- | ------- | ------- | --------------------------------- |
-| name        | string  | require | tên của sản phẩm                  |
-| images      | string  | require | ảnh của sản phẩm                  |
-| type        | string  | require | kiểu dáng của sản phẩm            |
-| brand       | string  | require | thương hiệu của sản phẩm          |
-| category    | string  | require | loại sản phẩm                     |
-| price       | number  | require | giá bán của sản phẩm              |
-| quantity    | number  | require | số lượng sản phẩm                 |
-| description | string  | require | mô tả của sản phẩm                |
-| caliber     | string  | require | bộ máy của sản phẩm               |
+| Field       | Type   | Require | Desciption               |
+| ----------- | ------ | ------- | ------------------------ |
+| name        | string | require | tên của sản phẩm         |
+| images      | string | require | ảnh của sản phẩm         |
+| type        | string | require | kiểu dáng của sản phẩm   |
+| brand       | string | require | thương hiệu của sản phẩm |
+| category    | string | require | loại sản phẩm            |
+| price       | number | require | giá bán của sản phẩm     |
+| quantity    | number | require | số lượng sản phẩm        |
+| description | string | require | mô tả của sản phẩm       |
+| caliber     | string | require | bộ máy của sản phẩm      |
 
 ### 2.2 Edit product
-  - Method: PATCH
-  - Path: /:id,
-  - Body:
 
-| Field       | Type    | Require | Desciption                        |
-| ----------- | ------- | ------- | --------------------------------- |
-| name        | string  | require | tên của sản phẩm                  |
-| images      | string  | require | ảnh của sản phẩm                  |
-| type        | string  | require | kiểu dáng của sản phẩm            |
-| brand       | string  | require | thương hiệu của sản phẩm          |
-| category    | string  | require | loại sản phẩm                     |
-| price       | number  | require | giá bán của sản phẩm              |
-| quantity    | number  | require | số lượng sản phẩm                 |
-| description | string  | require | mô tả của sản phẩm                |
-| caliber     | string  | require | bộ máy của sản phẩm               |
+- Method: PATCH
+- Path: /:id,
+- Body:
+
+| Field       | Type   | Require | Desciption               |
+| ----------- | ------ | ------- | ------------------------ |
+| name        | string | require | tên của sản phẩm         |
+| images      | string | require | ảnh của sản phẩm         |
+| type        | string | require | kiểu dáng của sản phẩm   |
+| brand       | string | require | thương hiệu của sản phẩm |
+| category    | string | require | loại sản phẩm            |
+| price       | number | require | giá bán của sản phẩm     |
+| quantity    | number | require | số lượng sản phẩm        |
+| description | string | require | mô tả của sản phẩm       |
+| caliber     | string | require | bộ máy của sản phẩm      |
 
 ### 2.3 Delete product
-  - Method: DELETE
-  - Path: /:id,
-  - Body:
+
+- Method: DELETE
+- Path: /:id,
+- Body:
 
 ### 2.4 Get product
-  - Method: GET
-  - Path: /:id,
-  - Body:
+
+- Method: GET
+- Path: /:id,
+- Body:
 
 ### 2.5 Get list product
-  - Method: GET
-  - Path: /list,
-  - Body:
+
+- Method: GET
+- Path: /list,
+- Body:
 
 ### 2.6 Get list product
-  - Method: GET
-  - Path: /search/:name,
-  - Body:
+
+- Method: GET
+- Path: /search/:name,
+- Body:
 
 ### 2.7 Get filter product
-  - Method: GET
-  - Path: /filter,
-  - Body:
+
+- Method: GET
+- Path: /filter,
+- Body:
 
 ## 3. Order
-* Base URL: http://localhost:3001/api/order/
-* Đối tượng Order
+
+- Base URL: http://localhost:3001/api/order/
+- Đối tượng Order
 
 ### 3.1 Get list order
 
-  - Method: GET
-  - Path: /,
-  - Body:
-  
+- Method: GET
+- Path: /,
+- Body:
+
+## Hướng dẫn cài đặt
+
+### 1. Yêu cầu hệ thống
+
+Để chạy dự án, bạn cần cài đặt các công cụ sau:
+
+- **Node.js**: Phiên bản >= 14.x
+- **npm** hoặc **yarn**: Quản lý gói (npm đi kèm với Node.js)
+- **MongoDB**: Phiên bản >= 4.x
+
+### 2. Cài đặt dự án
+
+#### Bước 1: Clone repository
+
+#### Bước 2: Di chuyển vào thư mục dự án
+Sử dụng lệnh 
+- cd web-watch : di chuyển vào thư mục web-watch
+- cd client : di chuyển vào thư mục client
+- cd server : di chuyển vào thư mục server
+
+#### Bước 3: Cài đặt các dependencies
+Sử dụng lệnh yarn install để cài đặt các dependencies (chạy ở cả client và server)
+
+#### Bước 4: Chạy dự án
+Sử dụng lệnh yarn start để chạy dự án (chạy ở cả client và server)
