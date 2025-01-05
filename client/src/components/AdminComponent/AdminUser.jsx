@@ -289,6 +289,7 @@ const AdminUser = () => {
           columns={columns}
           isLoading={isFetchingUser}
           data={dataTable}
+          pagination={{ pageSize: 5 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {

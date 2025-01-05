@@ -306,6 +306,7 @@ export default function AdminSupplier() {
           createBrand={() => setIsOpenBrand(true)}
           columns={columns}
           data={dataTable}
+          pagination={{ pageSize: 5 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {

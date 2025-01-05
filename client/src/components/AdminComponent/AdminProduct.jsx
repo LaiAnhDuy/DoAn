@@ -787,6 +787,7 @@ const AdminProduct = () => {
           columns={columns}
           isLoading={isLoadingProducts}
           data={dataTable}
+          pagination={{ pageSize: 5 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {

@@ -18,7 +18,7 @@ const ProfileComponent = ({ handleCancelProfile }) => {
   const access_token = localStorage.getItem("access_token");
   const mutation = useMutationHooks((data) => {
     const { id, access_token, ...rests } = data;
-    UserService.updateUser(id, rests, access_token);
+    UserService.updateUser(user.id, rests, access_token);
   });
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const ProfileComponent = ({ handleCancelProfile }) => {
         <Form
           form={form}
           onFinish={handleUpdate}
-          labelCol={{ span: 8}}
+          labelCol={{ span: 8 }}
           labelAlign="left"
         >
           <Form.Item
@@ -102,19 +102,19 @@ const ProfileComponent = ({ handleCancelProfile }) => {
             name="address"
             rules={[{ required: true, message: "Địa chỉ không được để trống" }]}
           >
-            <InputFormComponent  />
+            <InputFormComponent />
           </Form.Item>
 
           <div className="flex justify-end mb-5">
-            <button
-              className="underline text-blue-500"
+            <div
+              className="underline text-blue-500 cursor-pointer"
               onClick={() => {
                 setIsModalOpenChangePassword(true);
                 handleCancelProfile();
               }}
             >
               Đổi mật khẩu
-            </button>
+            </div>
           </div>
           <div className="flex justify-center">
             <button

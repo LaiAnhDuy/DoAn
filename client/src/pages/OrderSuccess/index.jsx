@@ -18,100 +18,101 @@ const OrderSucess = () => {
   const { state } = location;
   return (
     <div className="px-[150px]">
-        <div >
-          <h3 className="text-3xl fon-bold my-5">Đơn hàng đặt thành công</h3>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <WrapperContainer>
-              <WrapperInfo>
-                <div>
-                  <Lable>Phương thức giao hàng</Lable>
-                  <WrapperValue>
-                    <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                      {orderContant.delivery[state?.delivery]}
-                    </span>{" "}
-                    Giao hàng tiết kiệm
-                  </WrapperValue>
-                </div>
-              </WrapperInfo>
-              <WrapperInfo>
-                <div>
-                  <Lable>Phương thức thanh toán</Lable>
-
-                  <WrapperValue>
-                    {orderContant.payment[state?.payment]}
-                  </WrapperValue>
-                </div>
-              </WrapperInfo>
-              <WrapperItemOrderInfo>
-                {state.orders?.map((order) => {
-                  return (
-                    <WrapperItemOrder key={order?.name}>
-                      <div
-                        style={{
-                          width: "500px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 4,
-                        }}
-                      >
-                        <img
-                          alt="#"
-                          src={UPLOAD_BASE_URL + "/" + order?.images[0]}
-                          style={{
-                            width: "77px",
-                            height: "79px",
-                            objectFit: "cover",
-                          }}
-                        />
-                        <div
-                          style={{
-                            width: 260,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {order?.name}
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          flex: 1,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "10px",
-                        }}
-                      >
-                        <span>
-                          <span style={{ fontSize: "13px", color: "#242424" }}>
-                            Giá tiền: {Number(order?.price).toLocaleString("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </span>
-                        </span>
-                        <span>
-                          <span style={{ fontSize: "13px", color: "#242424" }}>
-                            Số lượng: {order?.amount}
-                          </span>
-                        </span>
-                      </div>
-                    </WrapperItemOrder>
-                  );
-                })}
-              </WrapperItemOrderInfo>
+      <div>
+        <h3 className="text-3xl fon-bold my-5">Đơn hàng đặt thành công</h3>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <WrapperContainer>
+            <WrapperInfo>
               <div>
-                <span style={{ fontSize: "16px", color: "red" }}>
-                  Tổng tiền: {Number(state?.totalPriceMemo).toLocaleString("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        })}
-                </span>
+                <Lable>Phương thức giao hàng</Lable>
+                <WrapperValue>
+                  <span style={{ color: "#ea8500", fontWeight: "bold" }}>
+                    {orderContant.delivery[state?.delivery]}
+                  </span>{" "}
+                  Giao hàng tiết kiệm
+                </WrapperValue>
               </div>
-            </WrapperContainer>
-          </div>
-        </div>
+            </WrapperInfo>
+            <WrapperInfo>
+              <div>
+                <Lable>Phương thức thanh toán</Lable>
 
+                <WrapperValue>
+                  {orderContant.payment[state?.payment]}
+                </WrapperValue>
+              </div>
+            </WrapperInfo>
+            <WrapperItemOrderInfo>
+              {state.orders?.map((order) => {
+                return (
+                  <WrapperItemOrder key={order?.name}>
+                    <div
+                      style={{
+                        width: "500px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 4,
+                      }}
+                    >
+                      <img
+                        alt="#"
+                        src={UPLOAD_BASE_URL + "/" + order?.images[0]}
+                        style={{
+                          width: "77px",
+                          height: "79px",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <div
+                        style={{
+                          width: 260,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {order?.name}
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        flex: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <span>
+                        <span style={{ fontSize: "13px", color: "#242424" }}>
+                          Giá tiền:{" "}
+                          {Number(order?.price).toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </span>
+                      </span>
+                      <span>
+                        <span style={{ fontSize: "13px", color: "#242424" }}>
+                          Số lượng: {order?.amount}
+                        </span>
+                      </span>
+                    </div>
+                  </WrapperItemOrder>
+                );
+              })}
+            </WrapperItemOrderInfo>
+            <div>
+              <span style={{ fontSize: "16px", color: "red" }}>
+                Tổng tiền:{" "}
+                {Number(state?.totalPriceMemo).toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </span>
+            </div>
+          </WrapperContainer>
+        </div>
+      </div>
     </div>
   );
 };

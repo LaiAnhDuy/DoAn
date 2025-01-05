@@ -278,6 +278,7 @@ const OrderAdmin = () => {
           columns={columns}
           isLoading={isLoadingOrders}
           data={dataTable}
+          pagination={{ pageSize: 5 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {

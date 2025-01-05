@@ -218,6 +218,7 @@ export default function AdminCoupon() {
           createCoupon={() => setIsOpen(true)}
           columns={columns}
           data={dataTable}
+          pagination={{ pageSize: 5 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {

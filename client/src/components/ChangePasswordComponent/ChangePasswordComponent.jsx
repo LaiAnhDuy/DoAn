@@ -17,8 +17,10 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const mutation = useMutationHooks((data) => UserService.changePassword(data));
-  console.log(mutation, "a");
+  const access_token = localStorage.getItem("access_token");
+  const mutation = useMutationHooks((data) =>
+    UserService.changePassword(data, access_token)
+  );
   const { data, isSuccess, isError } = mutation;
   useEffect(() => {
     if (isSuccess) {
@@ -64,7 +66,7 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
           <p className="text-3xl font-bold text-orange-600 mb-5">Xin chào</p>
           <p>Xin mời bạn đổi mật khẩu</p>
           <div className="mt-5">
-            <Form>
+            <Form onFinish={handleChangePassword}>
               <Form.Item
                 name="currentPassword"
                 rules={[
@@ -130,7 +132,7 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
                 />
               </Form.Item>
               <Form.Item
-                name="comfirm password"
+                name="confirmPassword"
                 rules={[
                   {
                     required: true,
@@ -165,7 +167,7 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
               <div className="flex justify-center">
                 <button
                   className="bg-red-500 text-white px-8 py-2 active:bg-red-400 rounded"
-                  onClick={handleChangePassword}
+                  type="submit"
                 >
                   Đổi mật khẩu
                 </button>

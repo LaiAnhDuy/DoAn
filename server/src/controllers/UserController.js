@@ -157,9 +157,9 @@ const getAllUsers = async (req, res, next) => {
 };
 const changePassword = async (req, res, next) => {
   try {
-    const id = req.payload?._id;
+    const _id = req.payload?._id;
     // Giải mã token để tìm người dùng
-    const changePasswordUser = await UserRepo.findUser({ id });
+    const changePasswordUser = await UserRepo.findUser({ _id });
     const { currentPassword, newPassword, confirmNewPassword } = req.body;
     // Kiểm tra xem mật khẩu hiện tại có khớp với mật khẩu trong cơ sở dữ liệu hay không
     if (changePasswordUser == null) {

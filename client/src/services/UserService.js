@@ -133,12 +133,12 @@ export const changePassword = async (data, access_token) => {
   try {
     const res = await axiosJWT.post(
       `${process.env.REACT_APP_API_URL}/user/change-password`,
+      data,
       {
         headers: {
           authorization: `Bearer ${access_token}`,
         },
       },
-      data,
       {
         withCredentials: true,
       }
