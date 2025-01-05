@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Form, Image, Input } from "antd";
-import { Button } from "antd";
 
 import * as UserService from "../../services/UserService";
 import * as message from "../Message/Message";
@@ -93,7 +92,7 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
               >
                 <Input.Password
                   type="password"
-                  placeholder="Mật khẩu"
+                  placeholder="Mật khẩu cũ"
                   value={currentPassword}
                   onChange={handleOnchangeCurrentPassword}
                 />
@@ -125,7 +124,7 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
               >
                 <Input.Password
                   type="password"
-                  placeholder="Mật khẩu"
+                  placeholder="Mật khẩu mới"
                   // value={newPassword}
                   onChange={handleOnchangeNewPassword}
                 />
@@ -157,21 +156,20 @@ const ChangePasswordComponent = ({ handleCancelChangePassword }) => {
               >
                 <Input.Password
                   type="password"
-                  placeholder="Xác nhận mật khẩu"
+                  placeholder="Xác nhận mật khẩu mới"
                   // value={confirmPassword}
                   onChange={handleOnchangeConfirmPassword}
                 />
               </Form.Item>
 
-              <Form.Item className="text-center">
-                <Button
-                  htmlType="submit"
-                  className="text-black"
+              <div className="flex justify-center">
+                <button
+                  className="bg-red-500 text-white px-8 py-2 active:bg-red-400 rounded"
                   onClick={handleChangePassword}
                 >
                   Đổi mật khẩu
-                </Button>
-              </Form.Item>
+                </button>
+              </div>
             </Form>
           </div>
         </div>

@@ -13,11 +13,11 @@ import { WrapperTextLight } from "./style.js";
 const SignInPage = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // const passwordRegex =
-    // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-    const hasNumber = /\d/
-    const hasCapitalLetter = /[A-Z]/
-    const hasSmallLetter = /[a-z]/
-    const hasSpecialLetter = /[!@#$%^&*(),.?":{}|<>]/
+  // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+  const hasNumber = /\d/;
+  const hasCapitalLetter = /[A-Z]/;
+  const hasSmallLetter = /[a-z]/;
+  const hasSpecialLetter = /[!@#$%^&*(),.?":{}|<>]/;
   const location = useLocation();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -109,23 +109,19 @@ const SignInPage = () => {
                 { required: true, message: "Vui lòng nhập mật khẩu!" },
                 {
                   pattern: hasCapitalLetter,
-                  message:
-                    "Ít nhất 1 ký tự chữ hoa.",
+                  message: "Ít nhất 1 ký tự chữ hoa.",
                 },
                 {
                   pattern: hasSmallLetter,
-                  message:
-                    "Ít nhất 1 ký tự chữ thường",
+                  message: "Ít nhất 1 ký tự chữ thường",
                 },
                 {
                   pattern: hasSpecialLetter,
-                  message:
-                    "Ít nhất 1 kí tự đặc biệt.",
+                  message: "Ít nhất 1 kí tự đặc biệt.",
                 },
                 {
                   pattern: hasNumber,
-                  message:
-                    "Ít nhất 1 ký tự số.",
+                  message: "Ít nhất 1 ký tự số.",
                 },
               ]}
             >
@@ -136,11 +132,14 @@ const SignInPage = () => {
                 onChange={handleOnchangePassword}
               />
             </Form.Item>
-            <Form.Item className="text-center">
-              <Button htmlType="submit" className="text-black ">
+            <div className="flex justify-center my-5">
+              <button
+                className="bg-red-500 text-white px-8 py-2 active:bg-red-400 rounded"
+                type="submit"
+              >
                 Đăng nhập
-              </Button>
-            </Form.Item>
+              </button>
+            </div>
           </Form>
         </div>
 

@@ -19,6 +19,15 @@ const getCoupons = async (req, res, next) => {
   }
 };
 
+const getAdminCoupons = async (req, res, next) => {
+	try {
+		const coupons = await CouponRepo.getAdminAllCoupons();
+		res.status(200).json({coupons});
+	} catch (error) {
+		next(error);
+	}
+};
+
 const useCoupons = async (req, res, next) => {
   try {
     const { modifiedCount } = await CouponRepo.useCoupon(
@@ -47,5 +56,6 @@ module.exports = {
   createCoupon,
   useCoupons,
   getCoupons,
+  getAdminCoupons,
   deleteCoupon,
 };

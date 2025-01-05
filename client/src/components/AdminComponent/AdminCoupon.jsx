@@ -52,7 +52,7 @@ export default function AdminCoupon() {
     setIsOpen(false);
   };
   const getAllCoupons = async () => {
-    const res = await CoupontService.getAllCoupon(access_token);
+    const res = await CoupontService.getAllCouponAdmin(access_token);
     setCoupons(res?.coupons);
   };
   useEffect(() => {
@@ -261,7 +261,7 @@ export default function AdminCoupon() {
             label="Phần trăm giảm giá"
             name="discountPercent"
             rules={[
-              { required: true, message: "Vui lòng nhập phần trăm giảm giá!" },
+              { required: true, message: "Vui lòng nhập phần trăm giảm giá !" },
             ]}
           >
             <Radio.Group>
@@ -284,7 +284,7 @@ export default function AdminCoupon() {
             label="Giảm giá tối đa (VND)"
             name="maximumDiscountAmount"
             rules={[
-              { pattern: /^[0-9]*$/, message: "PVui lòng nhập số tiền !" },
+              { pattern: /^[0-9]*$/, message: "Vui lòng nhập số tiền !" },
             ]}
           >
             <Input />

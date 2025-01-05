@@ -258,6 +258,14 @@ const OrderAdmin = () => {
       label: "Đã hủy",
     },
   ];
+  const filteredSelects = selects.filter((option) => {
+    if (status === "done") return option.value === "done";
+    if (status === "shipping") return option.value !== "pending";
+    if (status === "pending") return true;
+    if (status === "cancel") return option.value === "cancel";
+    return false;
+  });
+
   const handleCancel = () => {
     setIsOpenStatus(false);
   };
@@ -422,7 +430,7 @@ const OrderAdmin = () => {
         <div className="flex flex-col gap-5">
           <Select
             placeholder="Edit status"
-            options={selects}
+            options={filteredSelects}
             value={status}
             onChange={onChangeStatus}
           ></Select>

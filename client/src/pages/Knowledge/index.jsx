@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { items, knowledge_items, majorItems, realOrFakeItems } from "./config";
-import EastIcon from "@mui/icons-material/East";
+import { ArrowRightOutlined } from "@ant-design/icons";
 
 const Knowledge = () => {
   const navigate = useNavigate();
@@ -69,8 +69,8 @@ const Knowledge = () => {
                   </p>
                   <p className="mt-1 text-[12px] opacity-60">{item.date}</p>
                   <p className="mt-5">{item.content}</p>
-                  <div className="text-red-500 mt-3 flex items-center gap-x-2 text-sm cursor-pointer">
-                    <EastIcon style={{ fontSize: 18 }} /> Xem thêm
+                  <div className="text-red-500 mt-3 flex items-center gap-x-2 text-sm cursor-pointer underline">
+                    <ArrowRightOutlined style={{ fontSize: 12 }} /> Xem thêm
                   </div>
                 </div>
               </div>

@@ -17,6 +17,24 @@ export const getAllCoupon = async (access_token) => {
     console.log(error);
   }
 };
+
+export const getAllCouponAdmin = async (access_token) => {
+  try {
+    const res = await axios.get(
+      `${process.env.REACT_APP_API_URL}/coupon/admin`,
+
+      {
+        headers: {
+          authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const createCoupon = async (data, access_token) => {
   try {
     const res = await axios.post(
@@ -49,7 +67,7 @@ export const usedCoupon = async (data, access_token) => {
     console.log(error);
   }
 };
-export const deleteCoupon = async (id, access_token, ) => {
+export const deleteCoupon = async (id, access_token) => {
   try {
     const res = await axiosJWT.delete(
       `${process.env.REACT_APP_API_URL}/coupon/${id}`,

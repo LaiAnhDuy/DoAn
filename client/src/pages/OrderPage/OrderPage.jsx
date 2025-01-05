@@ -2,18 +2,11 @@ import { Button, Checkbox, Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   CustomCheckbox,
-  WrapperCountOrder,
   WrapperInfo,
-  WrapperItemOrder,
-  WrapperListOrder,
-  WrapperRight,
-  WrapperStyleHeader,
-  WrapperStyleHeaderDilivery,
   WrapperTotal,
 } from "./style";
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
-import { WrapperInputNumber } from "../../components/ProductDetailsComponent/style";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -275,10 +268,10 @@ const OrderPage = () => {
               </div>
               <p className="col-span-2">Đơn giá</p>
               <p className="col-span-2 text-center">Số lượng</p>
-              <div className="flex col-span-2">
+              <div className="flex col-span-2 items-center">
                 <p>Thành tiền</p>
                 <DeleteOutlined
-                  className="cursor-pointer ml-auto"
+                  className="cursor-pointer ml-auto text-red-500 active:text-red-700"
                   onClick={handleRemoveAllOrder}
                 />
               </div>
@@ -359,8 +352,8 @@ const OrderPage = () => {
                         )}
                       </p>
                       <DeleteOutlined
-                        className="cursor-pointer ml-auto"
-                        onClick={handleRemoveAllOrder}
+                        className="cursor-pointer ml-auto text-red-500 active:text-red-700"
+                        onClick={() => handleDeleteOrder(order?.product)}
                       />
                     </div>
                   </div>
@@ -505,28 +498,25 @@ const OrderPage = () => {
               </WrapperTotal>
             </div>
             <div>
-
-            <ButtonComponent
-              onClick={() => handleAddCard()}
-              size={40}
-              styleButton={{
-                background: "rgb(255, 57, 69)",
-                height: "48px",
-                width: "320px",
-                border: "none",
-                borderRadius: "4px",
-              }}
-              textbutton={"Mua hàng"}
-              styleTextButton={{
-                color: "#fff",
-                fontSize: "15px",
-                fontWeight: "700",
-              }}
-            ></ButtonComponent>
-            
+              <ButtonComponent
+                onClick={() => handleAddCard()}
+                size={40}
+                styleButton={{
+                  background: "rgb(255, 57, 69)",
+                  height: "48px",
+                  width: "320px",
+                  border: "none",
+                  borderRadius: "4px",
+                }}
+                textbutton={"Mua hàng"}
+                styleTextButton={{
+                  color: "#fff",
+                  fontSize: "15px",
+                  fontWeight: "700",
+                }}
+              ></ButtonComponent>
             </div>
           </div>
-          
         </div>
       </div>
       <ModalComponent

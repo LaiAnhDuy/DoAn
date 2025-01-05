@@ -63,18 +63,19 @@ const SignUpComponent = () => {
   };
 
   const handleSignUp = () => {
-    if (password.target.value !== confirmPassword.target.value) {
-      message.error("Xác nhận mật khẩu không đúng");
-    } else {
-      mutation.mutate({
-        fullName: fullName.target.value,
-        email: email.target.value,
-        password: password.target.value,
-        confirmPassword: confirmPassword.target.value,
-        phone: phone.target.value,
-        address: address.target.value,
-      });
-    }
+    console.log(1)
+    // if (password.target.value !== confirmPassword.target.value) {
+    //   message.error("Xác nhận mật khẩu không đúng");
+    // } else {
+    //   mutation.mutate({
+    //     fullName: fullName.target.value,
+    //     email: email.target.value,
+    //     password: password.target.value,
+    //     confirmPassword: confirmPassword.target.value,
+    //     phone: phone.target.value,
+    //     address: address.target.value,
+    //   });
+    // }
   };
 
   return (
@@ -84,7 +85,7 @@ const SignUpComponent = () => {
           <p className="text-3xl font-bold text-orange-600 mb-5">Xin chào</p>
           <p>Xin mời bạn tạo tài khoản</p>
           <div className="mt-5">
-            <Form>
+            <Form onFinish={handleSignUp}>
               <Form.Item
                 name="fullname"
                 rules={[
@@ -220,15 +221,14 @@ const SignUpComponent = () => {
                   onChange={handleOnchangeAddress}
                 />
               </Form.Item>
-              <Form.Item className="text-center">
-                <Button
-                  htmlType="submit"
-                  className="text-black"
-                  onClick={handleSignUp}
-                >
-                  Đăng ký
-                </Button>
-              </Form.Item>
+              <div className="flex justify-center my-5">
+              <button
+                className="bg-red-500 text-white px-8 py-2 active:bg-red-400 rounded"
+                type="submit"
+              >
+                Đăng ký
+              </button>
+            </div>
             </Form>
           </div>
           <p>

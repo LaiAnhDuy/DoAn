@@ -16,6 +16,14 @@ const getAllCoupons = async (userId) => {
   });
   return coupons;
 };
+const getAdminAllCoupons = async () => {
+  const coupons = await Coupon.find({
+    expiredDate: {
+      $gte: new Date(),
+    },
+  });
+  return coupons;
+};
 const useCoupon = async (userId, couponId) => {
   return Coupon.findOneAndUpdate(
     { _id: couponId },
@@ -32,6 +40,7 @@ const deleteCoupon = async (couponId) => {
 module.exports = {
   createCoupon,
   getAllCoupons,
+  getAdminAllCoupons,
   useCoupon,
   deleteCoupon,
 };

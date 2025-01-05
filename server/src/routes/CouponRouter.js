@@ -18,4 +18,10 @@ router.delete(
   verify.verifyAdmin,
   couponController.deleteCoupon
 );
+router.get(
+  "/admin",
+  verify.verifyUser,
+  verify.verifyAdmin,
+  couponController.getAdminCoupons
+);
 module.exports = router;

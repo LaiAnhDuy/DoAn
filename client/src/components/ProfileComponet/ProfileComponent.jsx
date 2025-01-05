@@ -42,7 +42,6 @@ const ProfileComponent = ({ handleCancelProfile }) => {
   };
 
   const handleUpdate = (values) => {
-    console.log(values);
     mutation.mutate(
       {
         id: user?.id,

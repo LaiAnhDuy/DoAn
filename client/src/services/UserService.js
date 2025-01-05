@@ -129,10 +129,15 @@ export const SendMail = async (data) => {
     message.error(error.response.data.message);
   }
 };
-export const changePassword = async (data) => {
+export const changePassword = async (data, access_token) => {
   try {
     const res = await axiosJWT.post(
       `${process.env.REACT_APP_API_URL}/user/change-password`,
+      {
+        headers: {
+          authorization: `Bearer ${access_token}`,
+        },
+      },
       data,
       {
         withCredentials: true,

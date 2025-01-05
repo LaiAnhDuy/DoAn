@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as ProductService from "../../services/ProductService";
 
-import { WrapperButtonMore } from "./style";
-
 import CardComponent from "../../components/CardComponent/CardComponent";
 import SliderComponent from "../../components/SliderComponent/SliderComponent";
 import { useNavigate } from "react-router-dom";
@@ -51,29 +49,16 @@ const HomePage = () => {
           />
         ))}
       </div>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "50px",
-        }}
-      >
-        <WrapperButtonMore
-          textbutton={"Xem thêm"}
-          type="outline"
-          styleButton={{
-            border: "1px solid #d70018",
-            color: "#d70018",
-            width: "240px",
-            height: "38px",
-            borderRadius: "4px",
-          }}
+
+      <div className="flex justify-center">
+        <button
+          className="mt-10 px-14 py-2 text-white rounded bg-red-500 hover:bg-red-600"
           onClick={() => {
             navigate("/products");
           }}
-          styleTextButton={{ fontWeight: 500 }}
-        />
+        >
+          Xem thêm
+        </button>
       </div>
       <Expertise />
       <News />
