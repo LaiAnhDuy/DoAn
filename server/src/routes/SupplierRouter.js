@@ -23,6 +23,12 @@ router.delete(
   verify.verifyUser,
   verify.verifyAdmin,
   supplierController.deleteSupplier
-)
+);
+router.patch(
+  "/:id",
+  verify.verifyUser,
+  verify.verifyAdmin,
+  supplierController.updateSupplier
+);
 
 module.exports = router;

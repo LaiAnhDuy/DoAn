@@ -4,6 +4,11 @@ const createCoupon = async (data) => {
   const newCoupon = new Coupon(data);
   return await newCoupon.save();
 };
+
+const updateCoupon = async (id, data) => {
+  return Coupon.findByIdAndUpdate(id, data);
+};
+
 const getAllCoupons = async (userId) => {
   const coupons = await Coupon.find({
     startDate: {
@@ -43,4 +48,5 @@ module.exports = {
   getAdminAllCoupons,
   useCoupon,
   deleteCoupon,
+  updateCoupon,
 };

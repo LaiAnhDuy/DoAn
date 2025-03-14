@@ -51,6 +51,24 @@ export const createCoupon = async (data, access_token) => {
     console.log(error);
   }
 };
+
+export const updateCoupon = async (data, access_token) => {
+  try {
+    const res = await axios.patch(
+      `${process.env.REACT_APP_API_URL}/coupon/${data.id}`,
+      data,
+      {
+        headers: {
+          authorization: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const usedCoupon = async (data, access_token) => {
   try {
     const res = await axiosJWT.post(

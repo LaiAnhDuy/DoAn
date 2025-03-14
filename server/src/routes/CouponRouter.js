@@ -24,4 +24,10 @@ router.get(
   verify.verifyAdmin,
   couponController.getAdminCoupons
 );
+router.patch(
+  "/:id",
+  verify.verifyUser,
+  verify.verifyAdmin,
+  couponController.updateCoupon
+);
 module.exports = router;

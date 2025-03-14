@@ -93,387 +93,215 @@ export default function Comment({ productId }) {
   const { Panel } = Collapse;
   return (
     <>
-      <div className="container mt-5 mb-5">
-        <div className=" ">
-          <div className="">
-            <div className="border-none ml-auto">
-              <div className="mt-2 flex flex-col  p-3 bg-white">
-                <div className="flex items-center ">
-                  <div
-                    className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white ml-3 mr-5`}
-                  >
-                    <p className=" text-black w-8 h-8 text-xl m-0">{avatar}</p>
+      <div className="my-5">
+        <div>
+          <div className="flex items-center gap-x-5">
+            <p className="border rounded-full w-8 h-8 text-xl flex justify-center items-center ml-6">
+              {avatar}
+            </p>
+            <input
+              type="text"
+              className="px-7 py-3 w-full bg-gray-100 rounded-full focus:!bg-gray-200 focus:!outline-none"
+              placeholder="Nhập bình luận của bạn..."
+              value={value}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mt-5 flex justify-end">
+            {/* <button
+              onClick={() => {
+                handleCancel();
+              }}
+              className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full mr-8 active:bg-gray-200"
+            >
+              Huỷ
+            </button> */}
+            <button
+              type="button"
+              onClick={handleComment}
+              disabled={value.length === 0}
+              className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full active:bg-gray-200"
+            >
+              Bình luận
+            </button>
+          </div>
+        </div>
+        <div>
+          {comments?.map((item, index) => {
+            return (
+              <div key={index} className="mb-5">
+                <div className="flex items-top gap-x-5">
+                  <p className="border rounded-full w-8 h-8 text-xl flex justify-center items-center ml-6">
+                    {item?.sender?.fullName.charAt(0).toUpperCase()}
+                  </p>
+                  <div>
+                    <div className="px-5 py-2 bg-gray-100 rounded-xl text-lg">
+                      <p className="font-bold">{item?.sender?.fullName}</p>
+                      <p className="min-w-52 text-base">{item?.content}</p>
+                    </div>
+                    <div className="flex gap-x-10 mt-1 text-[12px] px-5">
+                      <p>{moment(item?.createdAt).format("DD/MM/YYYY")}</p>
+                      <button
+                        className="hover:underline hover:text-blue-500"
+                        onClick={() => setReply(item?._id)}
+                      >
+                        Phản hồi
+                      </button>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    className="px-5 h-12 w-full rounded-3xl border-solid border-gray-200 focus:!bg-gray-50  focus:!outline-none focus:!border-solid focus:!border-gray-500 focus:border-1"
-                    placeholder="Nhập bình luận của bạn..."
-                    value={value}
-                    onChange={handleChange}
-                  />
                 </div>
-                <div className=" mt-3 flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleCancel();
-                    }}
-                    className="bg-slate-100 font-bold text-sm h-9 w-24 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                  >
-                    Huỷ
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleComment}
-                    disabled={value.length === 0 ? true : false}
-                    className="bg-slate-100 font-bold text-sm h-9 w-28 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                  >
-                    Bình luận
-                  </button>
-                </div>
-              </div>
-              <div className="mt-2">
-                {comments?.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <div className="flex flex-row p-3">
-                        <div
-                          className={`h-fit border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
+                <div className="ml-14">
+                  {reply === item?._id ? (
+                    <div>
+                      <div className="flex items-center gap-x-5 mt-3">
+                        <p className="border rounded-full w-8 h-8 text-xl flex justify-center items-center ml-6">
+                          {avatar}
+                        </p>
+                        <input
+                          type="text"
+                          className="px-7 py-3 w-full bg-gray-100 rounded-full focus:!bg-gray-200 focus:!outline-none"
+                          placeholder="Nhập bình luận của bạn..."
+                          value={value2}
+                          onChange={handleChange2}
+                        />
+                      </div>
+                      <div className="mt-3 flex justify-end">
+                        <button
+                          onClick={() => {
+                            handleCancel();
+                            setReply("");
+                          }}
+                          className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full mr-8 active:bg-gray-200"
                         >
-                          <p className=" text-black w-8 h-8 text-xl m-0">
-                            {item?.sender?.fullName.charAt(0).toUpperCase()}
-                          </p>
-                        </div>
-                        <div className="w-full">
-                          <div className="flex justify-between items-center">
-                            <div className="flex flex-row items-center">
-                              <span className="mr-2 text-lg font-bold">
-                                {item?.sender?.fullName}
-                              </span>
-                            </div>
-                            <small>
-                              {moment(item?.createdAt).format("DD/MM/YYYY")}
-                            </small>
-                          </div>
-                          <p className="text-justify text-sm mb-0 mt-1 break-words">
-                            {item?.content}
-                          </p>
-                          <div className="">
-                            <div className="flex justify-between">
-                              <p
-                                onClick={() => setReply(item?._id)}
-                                className=" hover:cursor-pointer bg-slate-100 h-7 w-16 rounded-full hover:bg-gray-200 flex justify-center items-center"
-                              >
-                                Trả lời
-                              </p>
-                            </div>
-                            {reply === item?._id ? (
-                              <div className=" flex flex-col  p-3 bg-white">
-                                <div className="flex items-center ">
-                                  <div
-                                    className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
-                                  >
-                                    <p className=" text-black w-7 h-7 text-xl m-0">
-                                      {avatar}
-                                    </p>
-                                  </div>
-                                  <input
-                                    type="text"
-                                    className="px-5 h-10 w-full rounded-3xl border-solid border-gray-200 !outline-none focus:!bg-gray-50  focus:!outline-none focus:!border-solid focus:!border-gray-500 focus:border-1"
-                                    placeholder="Nhập bình luận của bạn..."
-                                    value={value2}
-                                    onChange={handleChange2}
-                                  />
-                                </div>
-                                <div className=" mt-3 flex justify-end">
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      handleCancel();
-                                      setReply("");
-                                    }}
-                                    className="bg-slate-100 font-bold text-sm h-9 w-24 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                  >
-                                    Huỷ
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      handleCommentReply(
-                                        item?._id,
-                                        item?.sender?._id
-                                      );
-                                      setReply("");
-                                    }}
-                                    disabled={
-                                      value2.length === 0 ? true : false
-                                    }
-                                    className="bg-slate-100 font-bold text-sm h-9 w-28 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                  >
-                                    Bình luận
-                                  </button>
-                                </div>
-                              </div>
-                            ) : (
-                              ""
-                            )}
-                            <Collapse
-                              bordered={false}
-                              className="!bg-transparent"
-                            >
-                              {item?.answers && item?.answers.length > 0 ? (
-                                <>
-                                  <Panel
-                                    header={
-                                      item?.answers.filter(
-                                        (val) => val.sender?._id !== auth.id
-                                      ).length + " Trả lời"
-                                    }
-                                    key={0}
-                                    className="headerReply !border-none"
-                                  >
-                                    {item?.answers &&
-                                      item?.answers
-                                        .filter(
-                                          (val) => val.sender?._id !== auth.id
-                                        )
-                                        .map((val, id) => {
-                                          return (
-                                            <div key={id}>
-                                              <div className="flex flex-row p-3">
-                                                <div
-                                                  className={`h-fit border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
-                                                >
-                                                  <p className=" text-black w-7 h-7 text-lg m-0">
-                                                    {val.sender?.fullName
-                                                      .charAt(0)
-                                                      .toUpperCase()}
-                                                  </p>
-                                                </div>
-                                                <div className="w-full">
-                                                  <div className="flex justify-between items-center">
-                                                    <div className="flex flex-row items-center">
-                                                      <span className="mr-2 text-lg font-bold">
-                                                        {val.sender?.fullName}
-                                                      </span>
-                                                    </div>
-                                                    <small>
-                                                      {moment(
-                                                        val.createdAt
-                                                      ).format("DD/MM/YYYY")}
-                                                    </small>
-                                                  </div>
-                                                  <p className="text-justify text-sm mb-0 mt-1 break-words">
-                                                    {val.sender?._id ===
-                                                    val.receiver?._id ? (
-                                                      ""
-                                                    ) : (
-                                                      <span className="font-bold">
-                                                        @
-                                                        {val.receiver?.fullName}
-                                                      </span>
-                                                    )}
-                                                    {" " + val.content}
-                                                  </p>
-                                                  <div className="">
-                                                    <div className="flex justify-between">
-                                                      <p
-                                                        onClick={() => {
-                                                          setReply(val._id);
-                                                          setId(item?._id);
-                                                        }}
-                                                        className=" text-sm hover:cursor-pointer bg-slate-100 h-6 w-14 rounded-full hover:bg-gray-200 flex justify-center items-center"
-                                                      >
-                                                        Trả lời
-                                                      </p>
-                                                    </div>
-                                                    {val.parentId === Id &&
-                                                    reply === val._id ? (
-                                                      <div className=" flex flex-col  p-3 bg-white">
-                                                        <div className="flex items-center ">
-                                                          <div
-                                                            className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
-                                                          >
-                                                            <p className=" text-black w-6 h-6 m-0">
-                                                              {avatar}
-                                                            </p>
-                                                          </div>
-                                                          <input
-                                                            type="text"
-                                                            className="px-5 h-8 w-full rounded-3xl border-solid border-gray-200 focus:!bg-gray-50  focus:!outline-none focus:!border-solid focus:!border-gray-500 focus:border-1"
-                                                            placeholder="Nhập bình luận của bạn..."
-                                                            value={value}
-                                                            onChange={
-                                                              handleChange
-                                                            }
-                                                          />
-                                                        </div>
-                                                        <div className=" mt-3 flex justify-end">
-                                                          <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                              handleCancel();
-                                                              setReply("");
-                                                            }}
-                                                            className="bg-slate-100 font-bold  h-7 w-16 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                                          >
-                                                            Huỷ
-                                                          </button>
-                                                          <button
-                                                            type="button"
-                                                            onClick={() =>
-                                                              handleCommentReply(
-                                                                item?._id,
-                                                                item?.sender
-                                                                  ?._id
-                                                              )
-                                                            }
-                                                            disabled={
-                                                              value.length === 0
-                                                                ? true
-                                                                : false
-                                                            }
-                                                            className="bg-slate-100 font-bold  h-7 w-17 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                                          >
-                                                            Bình luận
-                                                          </button>
-                                                        </div>
-                                                      </div>
-                                                    ) : (
-                                                      ""
-                                                    )}
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          );
-                                        })}
-                                  </Panel>
-                                  {item?.answers
-                                    .filter(
-                                      (val) => val.sender?._id === auth.id
-                                    )
-                                    .map((val, id) => {
-                                      return (
-                                        <>
-                                          <div key={id}>
-                                            <div className="flex flex-row mt-3 px-7">
-                                              <div
-                                                className={`h-fit border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
-                                              >
-                                                <p className=" text-black w-7 h-7 text-lg m-0">
-                                                  {val.sender?.fullName
-                                                    .charAt(0)
-                                                    .toUpperCase()}
-                                                </p>
-                                              </div>
-                                              <div className="w-full">
-                                                <div className="flex justify-between items-center">
-                                                  <div className="flex flex-row items-center">
-                                                    <span className="mr-2 text-lg font-bold">
-                                                      {val.sender?.fullName}
-                                                    </span>
-                                                  </div>
-                                                  <small>
-                                                    {moment(
-                                                      val.createdAt
-                                                    ).format("DD/MM/YYYY")}
-                                                  </small>
-                                                </div>
-                                                <p className="text-justify text-sm mb-0 mt-1 break-words">
-                                                  {val.sender?._id ===
-                                                  val.receiver?._id ? (
-                                                    ""
-                                                  ) : (
-                                                    <span className="font-bold">
-                                                      @{val.receiver?.fullName}
-                                                    </span>
-                                                  )}
-                                                  {" " + val.content}
-                                                </p>
-                                                <div className="">
-                                                  <div className="flex justify-between">
-                                                    <p
-                                                      onClick={() => {
-                                                        setReply(val._id);
-                                                        setId(item?._id);
-                                                      }}
-                                                      className=" text-sm hover:cursor-pointer bg-slate-100 h-6 w-14 rounded-full hover:bg-gray-200 flex justify-center items-center"
-                                                    >
-                                                      Trả lời
-                                                    </p>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          {val.parentId === Id &&
-                                          reply === val._id ? (
-                                            <div className=" flex flex-col  p-3 bg-white">
-                                              <div className="flex items-center ">
-                                                <div
-                                                  className={`border-solid rounded-full  border-[1px]   text-center bg-transparent text-white mr-2`}
-                                                >
-                                                  <p className=" text-black w-6 h-6 m-0">
-                                                    {avatar}
-                                                  </p>
-                                                </div>
-                                                <input
-                                                  type="text"
-                                                  className="px-5 h-8 w-full rounded-3xl border-solid border-gray-200 focus:!bg-gray-50  focus:!outline-none focus:!border-solid focus:!border-gray-500 focus:border-1"
-                                                  placeholder="Nhập bình luận của bạn..."
-                                                  value={value}
-                                                  onChange={handleChange}
-                                                />
-                                              </div>
-                                              <div className=" mt-3 flex justify-end">
-                                                <button
-                                                  type="button"
-                                                  onClick={() => {
-                                                    handleCancel();
-                                                    setReply("");
-                                                  }}
-                                                  className="bg-slate-100 font-bold  h-7 w-16 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                                >
-                                                  Huỷ
-                                                </button>
-                                                <button
-                                                  type="button"
-                                                  onClick={() =>
-                                                    handleCommentReply(
-                                                      item?._id,
-                                                      item?.sender?._id
-                                                    )
-                                                  }
-                                                  disabled={
-                                                    value.length === 0
-                                                      ? true
-                                                      : false
-                                                  }
-                                                  className="bg-slate-100 font-bold  h-7 w-17 rounded-full mr-8 border-none hover:bg-gray-200 cursor-pointer"
-                                                >
-                                                  Bình luận
-                                                </button>
-                                              </div>
-                                            </div>
-                                          ) : (
-                                            ""
-                                          )}
-                                        </>
-                                      );
-                                    })}
-                                </>
-                              ) : null}
-                            </Collapse>
-                          </div>
-                        </div>
+                          Huỷ
+                        </button>
+                        <button
+                          onClick={() => {
+                            handleCommentReply(item?._id, item?.sender?._id);
+                            setReply("");
+                          }}
+                          disabled={value2.length === 0 ? true : false}
+                          className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full active:bg-gray-200"
+                        >
+                          Bình luận
+                        </button>
                       </div>
                     </div>
-                  );
-                })}
+                  ) : (
+                    ""
+                  )}
+                  <Collapse bordered={false} className="!bg-transparent mt-1">
+                    {item?.answers && item?.answers.length > 0 ? (
+                      <>
+                        <Panel
+                          header={
+                            "Xem tất cả " + item?.answers.length + " Phản hồi"
+                          }
+                          key={0}
+                          className="!border-none text-[12px]"
+                        >
+                          {item?.answers &&
+                            item?.answers.map((val, id) => (
+                              <div key={id}>
+                                <div className="flex items-top gap-x-5">
+                                  <p className="border rounded-full w-8 h-8 text-xl flex justify-center items-center">
+                                    {val.sender?.fullName
+                                      .charAt(0)
+                                      .toUpperCase()}
+                                  </p>
+                                  <div className="flex-1">
+                                    <div className="px-5 py-2 bg-gray-100 rounded-xl text-lg w-max">
+                                      <p className="mr-2 text-lg font-bold">
+                                        {val.sender?.fullName}
+                                      </p>
+                                      <p className="min-w-52 text-base w-max">
+                                        {val.sender?._id ===
+                                        val.receiver?._id ? (
+                                          ""
+                                        ) : (
+                                          <span className="font-bold">
+                                            @{val.receiver?.fullName}
+                                          </span>
+                                        )}
+                                        {" " + val.content}
+                                      </p>
+                                    </div>
+                                    <div className="flex gap-x-10 mt-1 text-[12px] px-5">
+                                      <p>
+                                        {moment(val.createdAt).format(
+                                          "DD/MM/YYYY"
+                                        )}
+                                      </p>
+                                      <button
+                                        className="hover:underline hover:text-blue-500"
+                                        onClick={() => {
+                                          setReply(val._id);
+                                          setId(item?._id);
+                                        }}
+                                      >
+                                        Phản hồi
+                                      </button>
+                                    </div>
+                                    <div className="mt-3">
+                                      {val.parentId === Id &&
+                                      reply === val._id ? (
+                                        <div>
+                                          <div className="flex items-center gap-x-5">
+                                            <p className="border rounded-full w-8 h-8 text-xl flex justify-center items-center ml-6">
+                                              {avatar}
+                                            </p>
+                                            <input
+                                              type="text"
+                                              className="px-7 py-3 w-full bg-gray-100 rounded-full focus:!bg-gray-200 focus:!outline-none"
+                                              placeholder="Nhập bình luận của bạn..."
+                                              value={value}
+                                              onChange={handleChange}
+                                            />
+                                          </div>
+                                          <div className="mt-3 flex justify-end">
+                                            <button
+                                              onClick={() => {
+                                                handleCancel();
+                                                setReply("");
+                                              }}
+                                              className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full mr-8 active:bg-gray-200"
+                                            >
+                                              Huỷ
+                                            </button>
+                                            <button
+                                              onClick={() =>
+                                                handleCommentReply(
+                                                  item?._id,
+                                                  item?.sender?._id
+                                                )
+                                              }
+                                              disabled={
+                                                value.length === 0
+                                                  ? true
+                                                  : false
+                                              }
+                                              className="bg-slate-300 font-bold text-sm px-10 py-2 rounded-full active:bg-gray-200"
+                                            >
+                                              Bình luận
+                                            </button>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                        </Panel>
+                      </>
+                    ) : null}
+                  </Collapse>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </>

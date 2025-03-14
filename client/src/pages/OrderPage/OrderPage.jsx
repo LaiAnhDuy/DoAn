@@ -1,10 +1,6 @@
 import { Button, Checkbox, Form, Input, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import {
-  CustomCheckbox,
-  WrapperInfo,
-  WrapperTotal,
-} from "./style";
+import React, { useCallback, useEffect, useState } from "react";
+import { CustomCheckbox, WrapperInfo, WrapperTotal } from "./style";
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
@@ -51,6 +47,8 @@ const OrderPage = () => {
   const phone = useSelector((state) => state.order.phone);
   const email = useSelector((state) => state.order.email);
   const names = useSelector((state) => state.order.name);
+  const listCity = useSelector((state) => state.order.listCity);
+  const [priceDiscount, setPriceDiscount] = useState();
   const onChange = (e) => {
     if (listChecked.includes(e.target.value)) {
       const newListChecked = listChecked.filter(
@@ -61,15 +59,19 @@ const OrderPage = () => {
       setListChecked([...listChecked, e.target.value]);
     }
   };
-  const res = async () => {
-    const res = await axios.get("https://provinces.open-api.vn/api/?depth=3");
-    if (res) {
-      dispatch(getListAddresses({ listCity: res.data }));
+  const res = useCallback(async () => {
+    const response = await axios.get(
+      "https://provinces.open-api.vn/api/?depth=3"
+    );
+    if (response) {
+      dispatch(getListAddresses({ listCity: response.data }));
     }
-  };
+  }, [dispatch]);
+
   useEffect(() => {
     res();
-  }, []);
+  }, [res]);
+
   const onChangeCoupon = (e) => {
     if (checkCoupon.includes(e.target.value)) {
       setCheckCoupon([]);
@@ -83,14 +85,14 @@ const OrderPage = () => {
         listCity.filter((element) => element.code === city)[0]?.districts
       );
     }
-  }, [city]);
+  }, [city, listCity]);
   useEffect(() => {
     if (district) {
       setWards(
         districts.filter((element) => element.code === district)[0]?.wards
       );
     }
-  }, [district]);
+  }, [district, districts]);
   const handleChangeCount = (type, idProduct, limited) => {
     if (type === "increase") {
       if (!limited) {
@@ -135,7 +137,7 @@ const OrderPage = () => {
   };
   useEffect(() => {
     dispatch(selectedOrder({ listChecked }));
-  }, [listChecked]);
+  }, [listChecked, dispatch]);
 
   useEffect(() => {
     const res = listCoupons?.filter((coupon) => coupon._id === checkCoupon[0]);
@@ -144,8 +146,9 @@ const OrderPage = () => {
     if (discount) {
       dispatch(addDiscount({ discount: discount / 100 }));
     }
-  }, [checkCoupon]);
+  }, [checkCoupon, dispatch, listCoupons]);
   const result = useSelector((state) => state.order.discount);
+
   const handleChangeAddress = () => {
     setIsOpenModalUpdateInfo(true);
   };
@@ -166,7 +169,9 @@ const OrderPage = () => {
     }
     return 0;
   }, [order, checkCoupon]);
-  const listCity = useSelector((state) => state.order.listCity);
+
+  useEffect(() => setPriceDiscount(priceDiscountMemo, [priceDiscountMemo]));
+
   const diliveryPriceMemo = useMemo(() => {
     if (priceMemo >= 5000000 && priceMemo < 15000000) {
       return 10000;
@@ -187,8 +192,9 @@ const OrderPage = () => {
   }, [priceMemo, priceDiscountMemo, diliveryPriceMemo]);
 
   const handleRemoveAllOrder = () => {
-    if (listChecked?.length > 1) {
+    if (listChecked?.length > 0) {
       dispatch(removeAllOrderProduct({ listChecked }));
+      setListChecked([]);
     }
   };
 
@@ -448,7 +454,7 @@ const OrderPage = () => {
                       fontWeight: "bold",
                     }}
                   >
-                    {Number(priceDiscountMemo).toLocaleString("vi-VN", {
+                    {Number(priceDiscount).toLocaleString("vi-VN", {
                       style: "currency",
                       currency: "VND",
                     })}
@@ -522,6 +528,7 @@ const OrderPage = () => {
       <ModalComponent
         title="Cập nhật thông tin giao hàng"
         open={isOpenModalUpdateInfo}
+        onCancel={() => setIsOpenModalUpdateInfo(false)}
         footer={null}
         // onCancel={() => setIsOpenModalUpdateInfo(false)}
         // onOk={handleAddress}

@@ -18,101 +18,64 @@ const OrderSucess = () => {
   const { state } = location;
   return (
     <div className="px-[150px]">
+      <p className="mt-5 text-3xl font-bold">Đơn hàng đặt thành công</p>
+      <div className="grid grid-cols-2 gap-x-10">
+        <div>
+          <p className="my-5 font-medium text-xl">Phương thức Giao hàng</p>
+          <div className="px-10 py-5 bg-blue-100 border border-blue-200 rounded-lg">
+            <span className="font-bold text-orange-500 mr-5">
+              {orderContant.delivery[state?.delivery]}
+            </span>
+            {orderContant.delivery[state?.delivery] === "FAST"
+              ? "Giao hàng nhanh, tiết kiệm chi phí"
+              : "Giao hàng linh hoạt và đáng tin cậy"}
+          </div>
+        </div>
+        <div>
+          <p className="my-5 font-medium text-xl">Phương thức Thanh toán</p>
+          <div className="px-10 py-5 bg-blue-100 border border-blue-200 rounded-lg">
+            {orderContant.payment[state?.payment]}
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-4 mt-10 text-2xl border-b-2 pb-5 border-red-500">
+        <p className="col-span-2">Tên đồng hồ</p>
+        <p>Giá tiền</p>
+        <p>Số lượng</p>
+      </div>
       <div>
-        <h3 className="text-3xl fon-bold my-5">Đơn hàng đặt thành công</h3>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <WrapperContainer>
-            <WrapperInfo>
-              <div>
-                <Lable>Phương thức giao hàng</Lable>
-                <WrapperValue>
-                  <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                    {orderContant.delivery[state?.delivery]}
-                  </span>{" "}
-                  Giao hàng tiết kiệm
-                </WrapperValue>
+        {state.orders?.map((order, i) => (
+          <div key={order.product}>
+            <div className="grid grid-cols-4 my-5">
+              <div className="flex items-center gap-x-10 col-span-2">
+                <img
+                  alt="#"
+                  src={UPLOAD_BASE_URL + "/" + order?.images[0]}
+                  className="object-cover w-20 h-24"
+                />
+                <p className="text-xl">{order?.name}</p>
               </div>
-            </WrapperInfo>
-            <WrapperInfo>
-              <div>
-                <Lable>Phương thức thanh toán</Lable>
-
-                <WrapperValue>
-                  {orderContant.payment[state?.payment]}
-                </WrapperValue>
-              </div>
-            </WrapperInfo>
-            <WrapperItemOrderInfo>
-              {state.orders?.map((order) => {
-                return (
-                  <WrapperItemOrder key={order?.name}>
-                    <div
-                      style={{
-                        width: "500px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 4,
-                      }}
-                    >
-                      <img
-                        alt="#"
-                        src={UPLOAD_BASE_URL + "/" + order?.images[0]}
-                        style={{
-                          width: "77px",
-                          height: "79px",
-                          objectFit: "cover",
-                        }}
-                      />
-                      <div
-                        style={{
-                          width: 260,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        {order?.name}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        flex: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <span>
-                        <span style={{ fontSize: "13px", color: "#242424" }}>
-                          Giá tiền:{" "}
-                          {Number(order?.price).toLocaleString("vi-VN", {
-                            style: "currency",
-                            currency: "VND",
-                          })}
-                        </span>
-                      </span>
-                      <span>
-                        <span style={{ fontSize: "13px", color: "#242424" }}>
-                          Số lượng: {order?.amount}
-                        </span>
-                      </span>
-                    </div>
-                  </WrapperItemOrder>
-                );
-              })}
-            </WrapperItemOrderInfo>
-            <div>
-              <span style={{ fontSize: "16px", color: "red" }}>
-                Tổng tiền:{" "}
-                {Number(state?.totalPriceMemo).toLocaleString("vi-VN", {
+              <p className="my-auto text-xl">
+                {Number(order?.price).toLocaleString("vi-VN", {
                   style: "currency",
                   currency: "VND",
                 })}
-              </span>
+              </p>
+              <p className="my-auto text-xl">{order?.amount}</p>
             </div>
-          </WrapperContainer>
-        </div>
+            <hr className="h-[2px] bg-stone-300" />
+          </div>
+        ))}
+
+        <p className="text-2xl text-red-500 font-bold mt-10 grid grid-cols-4">
+          <div className="col-span-2">Tổng tiền : </div>
+          {Number(state?.totalPriceMemo).toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          })}
+        </p>
       </div>
+      
     </div>
   );
 };

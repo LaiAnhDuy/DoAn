@@ -12,6 +12,18 @@ const createSupplier = async (req, res, next) => {
     next(error);
   }
 };
+const updateSupplier = async (req, res, next) => {
+  try {
+    const supplier = await SupplierRepo.updateSupplier({
+      ...req.body,
+      _id: req.params.id,
+    });
+    res.status(200).json(supplier);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 const getAllSuppliers = async (req, res, next) => {
   try {
     const { supplierId } = req.query;
@@ -35,4 +47,5 @@ module.exports = {
   createSupplier,
   getAllSuppliers,
   deleteSupplier,
+  updateSupplier,
 };

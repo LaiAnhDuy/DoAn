@@ -63,19 +63,18 @@ const SignUpComponent = () => {
   };
 
   const handleSignUp = () => {
-    console.log(1)
-    // if (password.target.value !== confirmPassword.target.value) {
-    //   message.error("Xác nhận mật khẩu không đúng");
-    // } else {
-    //   mutation.mutate({
-    //     fullName: fullName.target.value,
-    //     email: email.target.value,
-    //     password: password.target.value,
-    //     confirmPassword: confirmPassword.target.value,
-    //     phone: phone.target.value,
-    //     address: address.target.value,
-    //   });
-    // }
+    if (password.target.value !== confirmPassword.target.value) {
+      message.error("Xác nhận mật khẩu không đúng");
+    } else {
+      mutation.mutate({
+        fullName: fullName.target.value,
+        email: email.target.value,
+        password: password.target.value,
+        confirmPassword: confirmPassword.target.value,
+        phone: phone.target.value,
+        address: address.target.value,
+      });
+    }
   };
 
   return (

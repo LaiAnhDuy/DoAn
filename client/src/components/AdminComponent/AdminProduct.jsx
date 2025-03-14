@@ -787,7 +787,7 @@ const AdminProduct = () => {
           columns={columns}
           isLoading={isLoadingProducts}
           data={dataTable}
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 7 }}
           onRow={(record, rowIndex) => {
             return {
               onClick: (event) => {
@@ -797,6 +797,8 @@ const AdminProduct = () => {
           }}
         />
       </div>
+
+      {/* Tạo sản phẩm */}
       <ModalComponent
         forceRender
         title="Tạo sản phẩm"
@@ -863,7 +865,7 @@ const AdminProduct = () => {
                 </Form.Item>
               )}
               <Form.Item
-                label="Số lương"
+                label="Số lượng"
                 name="quantity"
                 rules={[
                   {
@@ -1094,16 +1096,19 @@ const AdminProduct = () => {
           </Form.Item>
         </Form>
       </ModalComponent>
+
+      {/* Sửa sản phẩm */}
       <DrawerComponent
         title="Chi tiết sản phẩm"
         isOpen={isOpenDrawer}
         onClose={() => setIsOpenDrawer(false)}
-        width="90%"
+        width="50%"
       >
         <Form
           name="basic"
-          labelCol={{ span: 2 }}
-          wrapperCol={{ span: 22 }}
+          labelCol={{ span: 4 }}
+          labelAlign="left"
+          wrapperCol={{ span: 20}}
           onFinish={onUpdateProduct}
           autoComplete="on"
           form={form1}
@@ -1158,7 +1163,7 @@ const AdminProduct = () => {
             </Form.Item>
           )}
           <Form.Item
-            label="Số lương"
+            label="Số lượng"
             name="quantity"
             rules={[
               { required: true, message: "Vui lòng nhập số lượng đồng hồ !" },
@@ -1306,7 +1311,7 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+          <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
             <Button htmlType="submit">Sửa sản phẩm</Button>
           </Form.Item>
         </Form>

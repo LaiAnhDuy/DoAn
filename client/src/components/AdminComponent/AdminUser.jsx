@@ -307,15 +307,16 @@ const AdminUser = () => {
         />
       </div>
       <DrawerComponent
-        title={create ? "Thêm người dùng" : "Chi tiết người dùng"}
+        title={create ? "Thêm quản trị viên" : "Chi tiết người dùng"}
         isOpen={isOpenDrawer}
         onClose={() => setIsOpenDrawer(false)}
-        width="90%"
+        width="50%"
       >
         <Form
           name="basic"
-          labelCol={{ span: 2 }}
-          wrapperCol={{ span: 22 }}
+          labelCol={{ span: 4 }}
+          labelAlign="left"
+          wrapperCol={{ span: 20 }}
           onFinish={create ? onCreateUser : onUpdateUser}
           autoComplete="on"
           form={form}
@@ -404,24 +405,43 @@ const AdminUser = () => {
               name="address"
             />
           </Form.Item>
-          <Form.Item
-            label="Vai trò"
-            name="role"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập vai trò của người dùng!",
-              },
-            ]}
-          >
-            <Radio.Group onChange={handleOnchangeDetails} name="role">
-              <Radio value="admin"> Quản trị viên </Radio>
-              <Radio value="user"> Khách hàng </Radio>
-            </Radio.Group>
-          </Form.Item>
+          {create ? (
+            <Form.Item
+              label="Vai trò"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập vai trò của người dùng!",
+                },
+              ]}
+            >
+              <Radio.Group onChange={handleOnchangeDetails} name="role">
+                <Radio value="admin"> Quản trị viên </Radio>
+              </Radio.Group>
+            </Form.Item>
+          ) : (
+            <Form.Item
+              label="Vai trò"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập vai trò của người dùng!",
+                },
+              ]}
+            >
+              <Radio.Group onChange={handleOnchangeDetails} name="role">
+                <Radio value="admin"> Quản trị viên </Radio>
+                <Radio value="user"> Khách hàng </Radio>
+              </Radio.Group>
+            </Form.Item>
+          )}
 
-          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button htmlType="submit">{create ? "Tạo" : "Cập nhật"}</Button>
+          <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+            <Button htmlType="submit">
+              {create ? "Tạo quản trị viên" : "Cập nhật"}
+            </Button>
           </Form.Item>
         </Form>
       </DrawerComponent>

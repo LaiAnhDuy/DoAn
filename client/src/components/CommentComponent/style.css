@@ -1,8 +1,27 @@
-.headerReply .ant-collapse-header {
-  background-color: #fd842126;
-  border-radius: 30px !important;
-  width: 150px;
+.ant-collapse-header-text {
+  height: 22px !important;
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
 }
-.headerReply .ant-collapse-header:active {
-  background-color: #ff943d1b;
+
+.ant-collapse-header {
+  width: max-content;
+  padding: 0 0 0 20px !important;
+  margin-bottom: 10px !important;
+}
+.ant-collapse-header:hover {
+  color: #3b82f6 !important;
+}
+
+.ant-collapse-expand-icon {
+  padding-inline-end: 5px !important;
+}
+
+.ant-collapse-arrow {
+  font-size: 10px !important;
+}
+
+.ant-collapse-arrow:hover {
+  color: #3b82f6 !important;
 }

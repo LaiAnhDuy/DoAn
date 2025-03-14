@@ -83,7 +83,7 @@ const MyOrderPage = () => {
       message.error();
     }
   }, [isErrorCancle, isSuccessCancel, dataCancel]);
-  const renderProduct = (data, orderId) => {
+  const renderProduct = (data, orderId, status) => {
     return data?.map((product, index) => {
       return (
         <WrapperHeaderItem key={product?._id}>
@@ -118,25 +118,27 @@ const MyOrderPage = () => {
                 currency: "VND",
               })}
             </div>
-            {product.isReview ? (
+            {product.isReview && status === "done" ? (
               <p>Đã đánh giá</p>
             ) : (
-              <ButtonComponent
-                onClick={() => {
-                  handleReview(product?.product, orderId, index);
-                }}
-                size={40}
-                styleButton={{
-                  height: "36px",
-                  border: "1px solid #9255FD",
-                  borderRadius: "4px",
-                }}
-                textbutton={"Đánh giá"}
-                styleTextButton={{
-                  color: "#9255FD",
-                  fontSize: "14px",
-                }}
-              ></ButtonComponent>
+              status === "done" && (
+                <ButtonComponent
+                  onClick={() => {
+                    handleReview(product?.product, orderId, index);
+                  }}
+                  size={40}
+                  styleButton={{
+                    height: "36px",
+                    border: "1px solid #9255FD",
+                    borderRadius: "4px",
+                  }}
+                  textbutton={"Đánh giá"}
+                  styleTextButton={{
+                    color: "#9255FD",
+                    fontSize: "14px",
+                  }}
+                ></ButtonComponent>
+              )
             )}
           </span>
         </WrapperHeaderItem>
@@ -207,7 +209,11 @@ const MyOrderPage = () => {
                               }`}</span>
                             </div>
                           </WrapperStatus>
-                          {renderProduct(order?.orderItem, order._id)}
+                          {renderProduct(
+                            order?.orderItem,
+                            order._id,
+                            order.status
+                          )}
                           <WrapperFooterItem>
                             <div>
                               <span style={{ color: "rgb(255, 66, 78)" }}>

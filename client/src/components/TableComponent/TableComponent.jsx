@@ -44,7 +44,7 @@ const TableComponent = (props) => {
       >
         <Button onClick={exportExcel} className="mb-5">Xuất excel</Button>
         {keyselected === "users" ? (
-          <Button onClick={createUser}>Thêm người dùng</Button>
+          <Button onClick={createUser}>Thêm quản trị viên</Button>
         ) : keyselected === "product" ? (
           <Button onClick={createProduct}>Thêm sản phẩm</Button>
         ) : keyselected === "coupon" ? (

@@ -15,20 +15,25 @@ import { WrapperHeader } from "./style";
 import moment from "moment";
 import * as CoupontService from "../../services/CoupontService";
 import InputComponent from "../InputComponent/InputComponent";
+import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import {
   DeleteOutlined,
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import dayjs from "dayjs"
 
 export default function AdminCoupon() {
   const [isOpen, setIsOpen] = useState(false);
   const [form] = Form.useForm();
+  const [form1] = Form.useForm();
+
   const [rowSelected, setRowSelected] = useState();
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const [coupons, setCoupons] = useState([]);
   const searchInput = useRef(null);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
   const onCancel = () => {
     setIsOpen(false);
@@ -66,6 +71,37 @@ export default function AdminCoupon() {
   };
   const handleCancelDelete = () => {
     setIsModalOpenDelete(false);
+  };
+
+  const onUpdateCoupon = async (values) => {
+    const data = {
+      code: values.code,
+      startDate: values.date?.[0],
+      expiredDate: values.date?.[1],
+      discountPercent: values.discountPercent,
+      minimumPurchaseAmount: values.minimumPurchaseAmount,
+      maximumDiscountAmount: values.maximumDiscountAmount,
+      id: rowSelected,
+    };
+    const res = await CoupontService.updateCoupon(data, access_token);
+    if (res) {
+      form.resetFields();
+      getAllCoupons();
+    }
+    setIsOpenDrawer(false);
+  };
+
+  const handleOpenDrawer = (id) => {
+    setIsOpenDrawer(true);
+    const coupon = coupons.find((coupon) => coupon._id === id);
+    console.log(coupon);
+    form1.setFieldsValue({
+      code: coupon.code,
+      date: [dayjs(coupon.startDate), dayjs(coupon.expiredDate)],
+      discountPercent: coupon.discountPercent,
+      minimumPurchaseAmount: coupon.minimumPurchaseAmount,
+      maximumDiscountAmount: coupon.maximumDiscountAmount,
+    });
   };
   const handleDeleteCoupon = async () => {
     try {
@@ -144,12 +180,12 @@ export default function AdminCoupon() {
       }
     },
   });
-  const renderAction = () => {
+  const renderAction = (_, record) => {
     return (
       <div className="flex justify-around gap-x-2">
         <EditOutlined
           style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
-          // onClick={handleDetailsProduct}
+          onClick={() => handleOpenDrawer(record._id)}
         />
         <DeleteOutlined
           style={{ color: "red", fontSize: "30px", cursor: "pointer" }}
@@ -228,6 +264,8 @@ export default function AdminCoupon() {
           }}
         />
       </div>
+
+      {/* Tạo mã giảm giá */}
       <Modal
         open={isOpen}
         width={400}
@@ -295,6 +333,84 @@ export default function AdminCoupon() {
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* Sửa mã giảm giá */}
+      <DrawerComponent
+        title="Sửa mã giảm giá"
+        isOpen={isOpenDrawer}
+        onClose={() => setIsOpenDrawer(false)}
+        width="50%"
+      >
+        <Form
+          name="basic"
+          labelCol={{ span: 8 }}
+          labelAlign="left"
+          wrapperCol={{ span: 16 }}
+          onFinish={onUpdateCoupon}
+          autoComplete="on"
+          form={form1}
+        >
+          <Form.Item
+            label="Mã giảm giá"
+            name="code"
+            rules={[
+              { required: true, message: "Vui lòng nhập mã của bạn!" },
+              {
+                min: 8,
+                message: "Vui lòng nhập 8 ký tự trở lên",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Thời hạn giảm giá"
+            name="date"
+            rules={[
+              { required: true, message: "Vui lòng chọn thời hạn giảm giá !" },
+            ]}
+          >
+            <RangePicker format={"DD/MM/YYYY"} />
+          </Form.Item>
+          <Form.Item
+            label="Phần trăm giảm giá"
+            name="discountPercent"
+            rules={[
+              { required: true, message: "Vui lòng nhập phần trăm giảm giá !" },
+            ]}
+          >
+            <Radio.Group>
+              <Radio value={5}>5%</Radio>
+              <Radio value={10}>10%</Radio>
+              <Radio value={15}>15%</Radio>
+              <Radio value={20}>20%</Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            label="Giá trị đơn hàng tối thiểu (VND)"
+            name="minimumPurchaseAmount"
+            rules={[
+              { pattern: /^[0-9]*$/, message: "Vui lòng nhập số tiền !" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="Giảm giá tối đa (VND)"
+            name="maximumDiscountAmount"
+            rules={[
+              { pattern: /^[0-9]*$/, message: "Vui lòng nhập số tiền !" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+            <Button htmlType="submit">Sửa mã giảm giá</Button>
+          </Form.Item>
+        </Form>
+      </DrawerComponent>
+
+      {/* Xóa mã giảm giá */}
       <ModalComponent
         title="Xóa mã giảm giá"
         open={isModalOpenDelete}

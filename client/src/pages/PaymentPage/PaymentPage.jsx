@@ -1,13 +1,5 @@
 import { Form, Input, Radio, Select } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  Lable,
-  WrapperInfo,
-  WrapperLeft,
-  WrapperRadio,
-  WrapperRight,
-  WrapperTotal,
-} from "./style";
 
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,19 +68,21 @@ const PaymentPage = () => {
   const priceDiscountMemo = useMemo(() => {
     const total = result * priceMemo;
 
-    if (Number(total)) {
+    if (Number(total) && total < 1000000) {
       return total;
+    } else if (Number(total) && total >= 1000000) {
+      return 1000000;
     }
     return 0;
   }, [order]);
 
   const diliveryPriceMemo = useMemo(() => {
-    if (priceMemo >= 200000 && priceMemo < 500000) {
-      return 10000;
-    } else if (priceMemo >= 500000) {
+    if (priceMemo < 5000000) {
+      return 20000;
+    } else if (priceMemo >= 15000000) {
       return 0;
     } else {
-      return 20000;
+      return 10000;
     }
   }, [priceMemo]);
 
@@ -102,7 +96,6 @@ const PaymentPage = () => {
   const name = useSelector((state) => state.order.name);
   const phone = useSelector((state) => state.order.phone);
   const email = useSelector((state) => state.order.email);
-  console.log(email, name, addresses);
   const handleAddOrder = () => {
     if (
       access_token &&
@@ -265,238 +258,146 @@ const PaymentPage = () => {
   }, []);
 
   return (
-    <div style={{ background: "#f5f5fa", with: "100%", height: "100vh" }}>
-      {/* <Loading isLoading={isLoadingAddOrder}> */}
-      <div style={{ height: "100%", width: "1270px", margin: "0 auto" }}>
-        <h3>Thanh toán</h3>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <WrapperLeft>
-            <WrapperInfo>
-              <div>
-                <Lable>Chọn phương thức giao hàng</Lable>
-                <WrapperRadio onChange={handleDilivery} value={delivery}>
-                  <Radio value="fast">
-                    <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                      FAST
-                    </span>{" "}
-                    Giao hàng tiết kiệm
-                  </Radio>
-                  <Radio value="gojek">
-                    <span style={{ color: "#ea8500", fontWeight: "bold" }}>
-                      GO_JEK
-                    </span>{" "}
-                    Giao hàng tiết kiệm
-                  </Radio>
-                </WrapperRadio>
-              </div>
-            </WrapperInfo>
-            <WrapperInfo>
-              <div>
-                <Lable>Chọn phương thức thanh toán</Lable>
-                <WrapperRadio onChange={handlePayment} value={payment}>
-                  <Radio value="later_money">
-                    {" "}
-                    Thanh toán tiền mặt khi nhận hàng
-                  </Radio>
-                  {/* <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio> */}
-                </WrapperRadio>
-              </div>
-            </WrapperInfo>
-          </WrapperLeft>
-          <WrapperRight>
-            <div style={{ width: "100%" }}>
-              <WrapperInfo>
-                <div className="flex flex-col">
-                  <span>Tên người:</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {user?.fullName}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span>Địện thoại:</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    0{user?.phone}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span>Email:</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {user?.email}
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <span>
-                    Địa chỉ:{" "}
-                    <span
-                      onClick={handleChangeAddress}
-                      style={{
-                        color: "#ff3945",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Thay đổi
-                    </span>{" "}
-                  </span>
-                  {addresses.length > 0 ? (
-                    <span style={{ fontWeight: "bold" }}>
-                      {`${
-                        listCity.filter(
-                          (item) => item?.code === addresses[0]
-                        )[0]?.name
-                      } - ${
-                        listCity
-                          ?.filter((item) => item?.code === addresses[0])?.[0]
-                          ?.districts.filter(
-                            (item) => item?.code === addresses[1]
-                          )?.[0]?.name
-                      } - ${
-                        listCity
-                          ?.filter((item) => item?.code === addresses[0])?.[0]
-                          ?.districts.filter(
-                            (item) => item?.code === addresses[1]
-                          )?.[0]
-                          ?.wards.filter(
-                            (item) => item?.code === addresses[2]
-                          )?.[0]?.name
-                      } - ${addresses[3]}`}
-                    </span>
-                  ) : null}
-                </div>
-              </WrapperInfo>
-              <WrapperInfo>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span>Tạm tính</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {Number(priceMemo).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span>Giảm giá</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {Number(priceDiscountMemo).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span>Phí giao hàng</span>
-                  <span
-                    style={{
-                      color: "#000",
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {Number(diliveryPriceMemo).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </span>
-                </div>
-              </WrapperInfo>
-              <WrapperTotal>
-                <span>Tổng tiền</span>
-                <span style={{ display: "flex", flexDirection: "column" }}>
-                  <span
-                    style={{
-                      color: "rgb(254, 56, 52)",
-                      fontSize: "24px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {Number(totalPriceMemo).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </span>
-                  <span style={{ color: "#000", fontSize: "11px" }}>
-                    (Đã bao gồm VAT nếu có)
-                  </span>
+    <>
+      <p className="mx-[150px] text-3xl font-bold mt-5 mb-10">Thanh toán</p>
+      <div className="mx-[150px] grid grid-cols-2 gap-x-5">
+        <div className=" border-r border-stone-300">
+          <p className="mb-5 font-medium text-xl">Chọn phương thức Giao hàng</p>
+          <div className="px-10 py-5 bg-blue-100 border border-blue-200 rounded-lg w-5/6">
+            <Radio.Group onChange={handleDilivery} value={delivery}>
+              <Radio value="fast" className="block mb-5">
+                <span className="font-bold text-orange-500 ml-5 mr-2">
+                  FAST
                 </span>
-              </WrapperTotal>
+                - Giao hàng nhanh, tiết kiệm chi phí
+              </Radio>
+              <Radio value="gojek">
+                <span className="font-bold text-orange-500 ml-5 mr-2">
+                  GO_JEK
+                </span>
+                - Giao hàng linh hoạt và đáng tin cậy
+              </Radio>
+            </Radio.Group>
+          </div>
+          <p className="my-5 font-medium text-xl">Phương thức Thanh toán</p>
+          <div className="px-10 py-5 bg-blue-100 border border-blue-200 rounded-lg w-5/6">
+            <Radio.Group onChange={handlePayment} value={payment}>
+              <Radio value="later_money">
+                <p className="ml-5">Thanh toán tiền mặt khi nhận hàng</p>
+              </Radio>
+              {/* <Radio value="paypal"> Thanh toán tiền bằng paypal</Radio> */}
+            </Radio.Group>
+          </div>
+        </div>
+        <div>
+          <p className="font-medium text-xl">Thông tin thanh toán</p>
+          <div className="grid grid-cols-2">
+            <p className="mt-5 font-bold">Tên người mua :</p>
+            <p className="mt-5">{user?.fullName}</p>
+            <p className="mt-5 font-bold">Số điện thoại : </p>
+            <p className="mt-5">0{user?.phone}</p>
+            <p className="mt-5 font-bold">Email : </p>
+            <p className="mt-5">{user?.email}</p>
+          </div>
+          <div className="mt-5 flex gap-x-5">
+            <p className="font-bold">Địa chỉ: </p>
+            <p
+              className="text-red-500 underline cursor-pointer"
+              onClick={handleChangeAddress}
+            >
+              Thay đổi
+            </p>
+          </div>
+          <div className="mt-3">
+            {addresses.length > 0 ? (
+              <p>
+                {`${addresses[3]} - ${
+                  listCity
+                    ?.filter((item) => item?.code === addresses[0])?.[0]
+                    ?.districts.filter(
+                      (item) => item?.code === addresses[1]
+                    )?.[0]
+                    ?.wards.filter((item) => item?.code === addresses[2])?.[0]
+                    ?.name
+                } - ${
+                  listCity
+                    ?.filter((item) => item?.code === addresses[0])?.[0]
+                    ?.districts.filter(
+                      (item) => item?.code === addresses[1]
+                    )?.[0]?.name
+                } - ${
+                  listCity.filter((item) => item?.code === addresses[0])[0]
+                    ?.name
+                }`}
+              </p>
+            ) : null}
+          </div>
+          <hr className="mt-5" />
+          <div className="grid grid-cols-2">
+            <p className="mt-5 font-bold">Tạm tính :</p>
+            <p className="mt-5">
+              {Number(priceMemo).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </p>
+            <p className="mt-5 font-bold">Giảm giá : </p>
+            <p className="mt-5">
+              {Number(priceDiscountMemo).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </p>
+            <p className="mt-5 font-bold">Phí giao hàng : </p>
+            <p className="mt-5">
+              {Number(diliveryPriceMemo).toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })}
+            </p>
+          </div>
+          <hr className="mt-5" />
+          <div className="my-5 grid grid-cols-2">
+            <p className="text-xl">Tổng tiền : </p>
+            <div>
+              <p className="text-3xl text-red-500 font-bold">
+                {Number(totalPriceMemo).toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+              </p>
+              <p className="text-sm mt-2">(Đã bao gồm VAT nếu có)</p>
             </div>
-            {payment === "paypal" && sdkReady ? (
-              <div style={{ width: "320px" }}>
-                <PayPalButton
-                  amount={Math.round(totalPriceMemo / 30000)}
-                  onSuccess={onSuccessPaypal}
-                  onError={() => {
-                    alert("Erroe");
-                  }}
-                />
-              </div>
-            ) : (
-              <ButtonComponent
-                onClick={() => handleAddOrder()}
-                size={40}
-                styleButton={{
-                  background: "rgb(255, 57, 69)",
-                  height: "48px",
-                  width: "320px",
-                  border: "none",
-                  borderRadius: "4px",
+          </div>
+          {payment === "paypal" && sdkReady ? (
+            <div style={{ width: "320px" }}>
+              <PayPalButton
+                amount={Math.round(totalPriceMemo / 30000)}
+                onSuccess={onSuccessPaypal}
+                onError={() => {
+                  alert("Erroe");
                 }}
-                textbutton={"Đặt hàng"}
-                styleTextButton={{
-                  color: "#fff",
-                  fontSize: "15px",
-                  fontWeight: "700",
-                }}
-              ></ButtonComponent>
-            )}
-          </WrapperRight>
+              />
+            </div>
+          ) : (
+            <ButtonComponent
+              onClick={() => handleAddOrder()}
+              size={40}
+              styleButton={{
+                background: "rgb(255, 57, 69)",
+                height: "48px",
+                width: "200px",
+                border: "none",
+                borderRadius: "4px",
+              }}
+              textbutton={"Đặt hàng"}
+              styleTextButton={{
+                color: "#fff",
+                fontSize: "15px",
+                fontWeight: "700",
+              }}
+            ></ButtonComponent>
+          )}
         </div>
       </div>
       <ModalComponent
@@ -576,7 +477,7 @@ const PaymentPage = () => {
           </Form.Item>
         </Form>
       </ModalComponent>
-    </div>
+    </>
   );
 };
 

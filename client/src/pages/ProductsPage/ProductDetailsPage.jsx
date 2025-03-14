@@ -6,6 +6,7 @@ import { Carousel, Rate } from "antd";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import Comment from "../../components/CommentComponent";
 import { glass, size, waterResistant } from "../../constant/constant";
+import moment from "moment";
 
 const ProductDetailsPage = () => {
   const [product, setProduct] = useState();
@@ -72,15 +73,26 @@ const ProductDetailsPage = () => {
           <p className="font-bold text-3xl mb-10">Đánh giá của khách hàng</p>
           <div>
             {product?.reviews.map((review) => (
-              <div key={review._id} className="ml-5 mb-10">
-                <div className="flex gap-x-5 mb-2">
-                  <div className="w-9 h-9 text-xl border rounded-full flex items-center justify-center">
-                    {review.fullName.charAt(0).toUpperCase()}
-                  </div>
-                  {review.fullName}
-                  <Rate value={review.star} disabled/>
+              <div key={review._id} className="ml-5 mb-5 flex gap-x-5">
+                <div className="w-9 h-9 text-xl border rounded-full flex items-center justify-center">
+                  {review.fullName.charAt(0).toUpperCase()}
                 </div>
-                <div>{review.comment}</div>
+                <div>
+                  <div className="px-4 py-2 bg-gray-100 rounded-3xl">
+                    <p className="font-bold text-lg">{review.fullName}</p>
+                    <Rate
+                      value={review.star}
+                      disabled
+                      style={{ fontSize: 12 }}
+                    />
+                    <p className="min-w-52">
+                      {review.comment}
+                    </p>
+                  </div>
+                  <p className="text-[12px] mt-1 pl-5">
+                    {moment(review?.createdAt).format("DD/MM/YYYY")}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
